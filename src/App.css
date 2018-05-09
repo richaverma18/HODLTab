@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.landing-content-header{
+  font-size: 48px;
+  font-family: Karla;
+  color: #000000;
+  /* padding-left: 84px; */
+  padding-top: 227px;
+  width: inherit;
+}
+
+.landing-image{
+  padding-top: 168px;
+}
+
+.landing-download-button{
+  background-color: #655A98;
+  color: #FFFFFF;
+  font-family: Karla;
+  display: flex;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 10px 10px 10px;
+  /* padding-left: 84px; */
+}
+.landing-preview{
+  color: #645997;
+  font-size: 24px;
+  font-family: Karla;
+  padding-left: 20px;
+}
+
+.landing-content{
+  color: #000000;
+  font-size: 24px;
+  font-family: Karla;
+  /* padding-left: 84px; */
+}
+
+.landing-navbar-header{
+  padding-top: 30px;
+  padding-left: 30px;
+  width: inherit;
+}
+
+.landing-navbar-links{
+  display: inline;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (min-width: 1420px) {
+    .container.container-custom {
+        width: 1390px;
+    }
+}
