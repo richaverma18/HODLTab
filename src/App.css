@@ -42,14 +42,21 @@
   display: flex;
   text-align: center;
   font-size: 24px;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 2px 10px;
+  border: 1px solid #645997;
+  border-radius: 4px;
+  cursor: pointer;
+
   /* padding-left: 84px; */
+}
+.download-button-content{
+  padding-left: 15px;
 }
 .landing-preview{
   color: #645997;
   font-size: 24px;
   font-family: Karla;
-  padding-left: 20px;
+  padding-top: 20px;
 }
 
 .landing-content{
@@ -59,14 +66,44 @@
   /* padding-left: 84px; */
 }
 
-.landing-navbar-header{
-  padding-top: 30px;
-  padding-left: 30px;
-  width: inherit;
+.landing-navbar{
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.landing-navbar-brand{
+  padding-top: 10px;
+  /* padding-top: 30px; */
+  /* padding-left: 30px;
+  width: inherit; */
+  /* display: inline; */
+}
+
+.sign-up-button{
+  /* padding-right: 30px; */
+  color:  #645997;
+  background-color: transparent;
+  border: 1px solid #645997;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 12px 10px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
 }
 
 .landing-navbar-links{
-  display: inline;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #645997;
+  padding-right: 30px;
+  font-family: Karla;
 }
 
 @keyframes App-logo-spin {
