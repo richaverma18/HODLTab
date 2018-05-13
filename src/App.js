@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Grid, Row, Col, Image} from 'react-bootstrap';
-import { Link } from 'react-router';
-
+import { Router, browserHistory, Route, Link } from 'react-router';
 class App extends Component {
   render() {
     return (
@@ -23,9 +22,9 @@ class Header extends Component {
                 <img className="img-responsive" src="/HODLTAB.png" />
               </div>
               <ul className="nav navbar-right landing-navbar-links">
-                <li><a className="landing-navbar-links">CONTACT</a></li>
-                <li><a className="landing-navbar-links">LOG IN</a></li>
-                <li><button className="sign-up-button">SIGN UP </button></li>
+                <li><Link className="landing-navbar-links" to='/onboarding'>CONTACT</Link></li>
+                <li><Link className="landing-navbar-links" to='/onboarding'>LOG IN</Link></li>
+                <li><Link className="sign-up-button" to='/onboarding'>SIGN UP </Link></li>
               </ul>
             </nav>
       );

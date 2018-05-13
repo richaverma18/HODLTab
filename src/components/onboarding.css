@@ -1,0 +1,53 @@
+.onboarding-header{
+  font-family: 'Russo One';
+  font-style: normal;
+  font-size: 48px;
+  line-height: 58px;
+  padding-top: 50px;
+  text-align: center;
+  color: #46454F;
+}
+
+.onboarding-content{
+  font-family: 'Karla';
+  font-style: normal;
+  font-size: 24px;
+  line-height: 34px;
+  padding-top: 25px;
+  text-align: center;
+  width: 600px;
+  margin: auto;
+  margin-bottom: 80px;
+}
+
+.login-button{
+  background-color: #FFFFFF;
+  color: #000000;
+  display: flex;
+  text-align: center;
+  font-size: 20px;
+  padding: 15px 80px 8px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.03);
+  margin: auto;
+  margin-bottom: 20px;
+
+
+  /* padding-left: 84px; */
+}
+.login-button-content{
+  padding-left: 15px;
+  font-family: Karla;
+}
+
+.skip-link{
+  color: #645997;
+  font-size: 20px;
+  font-family: 'Karla';
+  text-align: center;
+  margin: auto;
+  margin-top: 40px;
+}
+
+/* Rectangle 2.1 */
