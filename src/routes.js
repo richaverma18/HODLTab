@@ -3,9 +3,11 @@ import { Route, Router, Switch } from 'react-router-dom';
 import App from './App';
 import Onboarding from './components/onboarding.js';
 import history from './history';
-import Private from './components/Private';
+import Private from './components/Home';
 import Login from './Auth/Login';
 import Logout from './Auth/Logout';
+import SelectCrypto from './components/SelectCrypto';
+import CustomizeFeed from './components/CustomizeFeed';
 
 // const auth = new Auth();
 //
@@ -20,16 +22,19 @@ export const makeMainRoutes = () => {
       <Router history={history} component={App}>
         <div>
             <Switch>
-            <Route exact path="/" component={App} />
-            <Route path="/login" component={Login} />
-            <Route path="/private" component={Private} />
-            <Route path="/logout" component={Logout} />
-
+              <Route exact path="/" component={App} />
+              <Route path="/login" component={Login} />
+              <Route path="/select_crypto" component={SelectCrypto} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/customize_feed" component={CustomizeFeed} />
             </Switch>
         </div>
       </Router>
   );
 }
+
+// <Route path="/home" component={Home} />
+
 
 //
 //

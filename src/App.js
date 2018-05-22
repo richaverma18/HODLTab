@@ -7,41 +7,10 @@ import { Link } from 'react-router-dom';
 import isAuthenticated from './Auth/isAuthenticated';
 
 class App extends Component {
-
-  // goTo(route) {
-  //     this.props.history.replace(`/${route}`)
-  //   }
-  //
-  //   login() {
-  //     this.props.history.replace('/onboarding');
-  //   }
-  //
-  //   logout() {
-  //     this.props.auth.logout();
-  //   }
-
   render() {
     return (
-      <div>
-      <nav className="navbar navbar-default landing-navbar">
-              <div className="navbar-header landing-navbar-brand">
-              <img className="img-responsive" src="/HODLTAB.png" />
-            </div>
-            <ul className="nav navbar-right landing-navbar-links">
-              <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
-              <li><Link className="landing-navbar-links" to='/private'>Private</Link></li>
-              {
-         !isAuthenticated() && (
-           <li><Link className="sign-up-button" to='/login'>LOG IN/SIGN UP</Link></li>
-         )
-       }
-       {
-         isAuthenticated() && (
-           <li><Link to='/logout'>Logout</Link></li>
-         )
-       }
-            </ul>
-          </nav>
+      <div className="crypto-container">
+        <Header/>
          <Content/>
       </div>
     );
@@ -56,11 +25,21 @@ class Header extends Component {
                 <img className="img-responsive" src="/HODLTAB.png" />
               </div>
               <ul className="nav navbar-right landing-navbar-links">
-                <li><button className="landing-navbar-links" onClick={this.login.bind(this)}>CONTACT</button></li>
-                <li><button className="landing-navbar-links" onClick={this.login.bind(this)}>LOG IN</button></li>
-                <li><button className="sign-up-button" onClick={this.login.bind(this)}>SIGN UP </button></li>
+                <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
+                <li><Link className="landing-navbar-links" to='/private'>Private</Link></li>
+                {
+           !isAuthenticated() && (
+             <li><Link className="sign-up-button" to='/login'>LOG IN/SIGN UP</Link></li>
+           )
+         }
+         {
+           isAuthenticated() && (
+             <li><Link to='/logout'>Logout</Link></li>
+           )
+         }
               </ul>
             </nav>
+
       );
    }
 }

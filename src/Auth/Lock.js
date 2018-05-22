@@ -9,10 +9,13 @@ class Lock extends Component {
       responseType: 'token id_token',
       sso: false,
     },
-    container: AUTH_CONFIG.container,
     theme: {
-      primaryColor: '#3a99d8'
-    }
+      logo: '/HODL-logo.svg',
+      primaryColor: '#655A98'
+    },
+    languageDictionary: {
+    title: ""
+  },
   });
 
   constructor(props) {
@@ -25,10 +28,20 @@ class Lock extends Component {
 
   onAuthenticated() {
     this.lock.on('authenticated', (authResult) => {
-      let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-      localStorage.setItem('access_token', authResult.accessToken);
-      localStorage.setItem('id_token', authResult.idToken);
-      localStorage.setItem('expires_at', expiresAt);
+      // Use the token in authResult to getUserInfo() and save it to localStorage
+      this.lock.getUserInfo(authResult.accessToken, function(error, profile) {
+        if (error) {
+      // Handle error
+        console.log(error.message);
+        return;
+    }
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('profile', JSON.stringify(profile));
+
+  });
 
       this.setState({ loggedIn: true });
     });
@@ -46,13 +59,10 @@ class Lock extends Component {
 
     return(
       !this.state.loggedIn ? (
-        <div>
-          <h2>Login Page</h2>
-          <div id={AUTH_CONFIG.container} style={style}></div>
-        </div>
+        <div></div>
       ) : (
         <Redirect to={{
-          pathname: '/private',
+          pathname: '/select_crypto',
           state: { from: this.props.location }
         }} />
       )
