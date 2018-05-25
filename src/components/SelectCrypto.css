@@ -70,7 +70,7 @@
   margin: auto;
   margin-top: 15px;
   margin-bottom: 15px;
-  
+
 }
 
 .add-coin-button{
@@ -85,4 +85,10 @@
   margin-right: 20px;
   border-radius: 4px;
   background-color: #FFFFFF;
+}
+
+.crypto-pagination{
+  margin: auto;
+  width: 800px;
+  padding-left: 170px;
 }

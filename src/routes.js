@@ -8,6 +8,7 @@ import Login from './Auth/Login';
 import Logout from './Auth/Logout';
 import SelectCrypto from './components/SelectCrypto';
 import CustomizeFeed from './components/CustomizeFeed';
+import Home from './components/Home';
 
 // const auth = new Auth();
 //
@@ -27,6 +28,7 @@ export const makeMainRoutes = () => {
               <Route path="/select_crypto" component={SelectCrypto} />
               <Route path="/logout" component={Logout} />
               <Route path="/customize_feed" component={CustomizeFeed} />
+              <Route path="/home" component={Home} />
             </Switch>
         </div>
       </Router>
