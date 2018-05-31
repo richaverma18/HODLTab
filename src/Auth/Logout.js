@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import {} from './AuthService.js';
 
 class Logout extends Component {
 
   constructor(props) {
     super(props);
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
   }
 
   render() {

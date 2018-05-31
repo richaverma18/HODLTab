@@ -88,7 +88,7 @@
   border: 1px solid #645997;
   border-radius: 4px;
   cursor: pointer;
-  padding: 10px 12px 10px 12px;
+  padding: 10px 12px 8px 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
@@ -114,6 +114,6 @@
 
 @media (min-width: 1420px) {
     .container.container-custom {
-        width: 1390px;
+        width: 1300px;
     }
 }

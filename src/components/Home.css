@@ -1,0 +1,189 @@
+.nav-tabs {
+   border-bottom: 2px solid #DDD;
+ }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+   border-width: 0;
+ }
+
+.nav-tabs > li > a {
+   border: none;
+   color: #645997;
+   font-size: 14px;
+   font-family: 'Karla';
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover {
+   border: none;
+   color: #645997 !important;
+   background: transparent;
+   font-size: 14px;
+   font-family: 'Karla';
+ }
+
+.nav-tabs > li > a::after {
+   content: "";
+   background: #645997;
+   height: 3px;
+   border-radius: 4px;
+   position: absolute;
+   width: 100%;
+   left: 0px;
+   bottom: -1px;
+   transition: all 250ms ease 0s;
+   transform: scale(0);
+ }
+.nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after {
+   transform: scale(1);
+ }
+
+.tab-nav > li > a::after {
+   background: #F0F0F0 none repeat scroll 0% 0%;
+ }
+
+.tab-pane {
+   padding: 50px 0;
+}
+
+/* .tab-content{
+  padding:20px
+} */
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #F0F0F0;
+    /* border: 1px solid #ddd; */
+    border-bottom-color: transparent;
+}
+
+.navbar{
+  margin-bottom: 0px;
+}
+
+.card {background: #F0F0F0 none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; padding: 50px;}
+
+.custom-tab-text{
+  font-size: 14px;
+  font-family: 'Karla';
+}
+.container {
+    margin-left: inherit;
+    padding-left: 0px;
+}
+
+/* .row{
+  margin-left: inherit;
+} */
+
+.golbal-data-div{
+  background: #FFFFFF;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  padding: 17px 6px 16px 5px;
+}
+
+.global-data-header{
+  font-family: 'Karla';
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.global-data-content{
+  font-family: 'Karla';
+  font-size: 24px;
+  color: #000000;
+  text-align: center;
+}
+
+.home-serach-div{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.home-search{
+    color: #000000;
+    font-family: 'Karla';
+    font-style: normal;
+    font-size: 16px;
+    width: -webkit-fill-available;
+    padding: 13px 13px 13px 16px;
+    background-color: #F8F8F8;
+    border-radius: 4px;
+}
+
+.home-coin-div{
+  border-radius: 4px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.01);
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.coin-name{
+  font-size: 16px;
+  font-family: 'Russo One';
+  color: #46454F;
+  line-height: 19px;
+}
+
+.coin-symbol{
+  font-size: 16px;
+  font-family: 'Russo One';
+  color: rgba(70, 69, 79, 0.5);
+  line-height: 19px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.home-add-coin-button{
+  border-radius: 2px;
+  background-color: #645997;
+  padding: 0px 3px 0px 3px;
+  height: 16px;
+}
+
+.home-added-coin-button{
+  border-radius: 2px;
+  background-color: #F7F7F7;
+  padding: 0px 3px 0px 3px;
+  height: 16px;
+}
+
+.coin-price{
+
+}
+.coin-volume_24h{
+  color: rgba(0, 0, 0, 0.5);
+  float: right;
+  padding-left: 16px;
+}
+
+.coin-div{
+  padding-right: 31px;
+  padding-top: 10px;
+}
+
+.coin-percentage_decrease{
+  color: #ED3838;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+.coin-percentage_increase{
+  color: #1DB636;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+
+@media (min-width: 1420px) {
+    .container {
+        width: 1300px;
+    }
+}

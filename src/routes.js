@@ -9,6 +9,8 @@ import Logout from './Auth/Logout';
 import SelectCrypto from './components/SelectCrypto';
 import CustomizeFeed from './components/CustomizeFeed';
 import Home from './components/Home';
+import Callback from './Auth/Callback';
+import { requireAuth } from './Auth/AuthService';
 
 // const auth = new Auth();
 //
@@ -25,10 +27,11 @@ export const makeMainRoutes = () => {
             <Switch>
               <Route exact path="/" component={App} />
               <Route path="/login" component={Login} />
-              <Route path="/select_crypto" component={SelectCrypto} />
+              <Route path="/select_crypto" component={SelectCrypto} onEnter={requireAuth}/>
               <Route path="/logout" component={Logout} />
               <Route path="/customize_feed" component={CustomizeFeed} />
-              <Route path="/home" component={Home} />
+              <Route path="/home" component={Home} onEnter={requireAuth}/>
+              <Route path="/callback" component={Callback} />
             </Switch>
         </div>
       </Router>

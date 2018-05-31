@@ -3,46 +3,45 @@ import logo from './logo.svg';
 import './App.css';
 import {Grid, Row, Col, Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { login, logout, isLoggedIn } from './Auth/AuthService';
+import { Redirect } from 'react-router-dom';
 
-import isAuthenticated from './Auth/isAuthenticated';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isLoggedIn: isLoggedIn()
+    };
+  }
+
+  handleLogout = () => {
+    logout();
+    this.setState({isLoggedIn: isLoggedIn()});
+  }
+
   render() {
     return (
       <div className="crypto-container">
-        <Header/>
+      <nav className="navbar navbar-default landing-navbar">
+              <div className="navbar-header landing-navbar-brand">
+              <img className="img-responsive" src="/HODLTAB.png" />
+            </div>
+            <ul className="nav navbar-right landing-navbar-links">
+              <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
+              <li><Link className="landing-navbar-links" to='/private'>Private</Link></li>
+              <li>
+                {this.state.isLoggedIn ? ( <button className="btn sign-up-button log" onClick={() => this.handleLogout()}>LOG OUT </button> ) : ( <button className="sign-up-button" onClick={() => login()}>LOG IN/SIGN UP</button> )}
+              </li>
+            </ul>
+          </nav>
          <Content/>
       </div>
     );
   }
 }
 
-class Header extends Component {
-   render() {
-      return (
-        <nav className="navbar navbar-default landing-navbar">
-                <div className="navbar-header landing-navbar-brand">
-                <img className="img-responsive" src="/HODLTAB.png" />
-              </div>
-              <ul className="nav navbar-right landing-navbar-links">
-                <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
-                <li><Link className="landing-navbar-links" to='/private'>Private</Link></li>
-                {
-           !isAuthenticated() && (
-             <li><Link className="sign-up-button" to='/login'>LOG IN/SIGN UP</Link></li>
-           )
-         }
-         {
-           isAuthenticated() && (
-             <li><Link to='/logout'>Logout</Link></li>
-           )
-         }
-              </ul>
-            </nav>
 
-      );
-   }
-}
 class Content extends React.Component {
    render() {
       return (
@@ -65,3 +64,14 @@ class Content extends React.Component {
    }
 }
 export default App;
+
+// {
+// !isAuthenticated() && (
+// <li><Link className="sign-up-button" to='/login'>LOG IN/SIGN UP</Link></li>
+// )
+// }
+// {
+// isAuthenticated() && (
+// <li><Link to='/logout'>Logout</Link></li>
+// )
+// }
