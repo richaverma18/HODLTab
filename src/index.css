@@ -1,10 +1,15 @@
-body {
+html,body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  height: 100%;
 }
 
 .crypto-container{
   background: #F0F0F0;
   padding-bottom: 30px;
+  height: 100%;
+}
+
+#root{
+  height: 100%;
 }

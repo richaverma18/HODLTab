@@ -11,7 +11,7 @@ class Logout extends Component {
   render() {
     return (
       <Redirect to={{
-        pathname: '/login',
+        pathname: '/',
         state: { from: this.props.location }
       }} />
     );

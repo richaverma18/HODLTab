@@ -5,6 +5,8 @@ import isAuthenticated from '../Auth/isAuthenticated';
 import AllCoins from './AllCoins';
 import MyCoins from './MyCoins';
 import './Home.css';
+import { logout, isLoggedIn } from '../Auth/AuthService';
+
 
 
 
@@ -13,12 +15,19 @@ class Home extends Component{
       super(props);
       this.handleSelect = this.handleSelect.bind(this);
       this.state = {
-        key: 2
+        key: 2,
+        isLoggedIn: isLoggedIn()
       };
     }
     handleSelect(key) {
       this.setState({ key });
     }
+    handleLogout = () => {
+      logout();
+      this.setState({isLoggedIn: isLoggedIn()});
+      window.location.href = "/";
+    }
+
 
     render() {
 
@@ -26,10 +35,12 @@ class Home extends Component{
         <div className="crypto-container">
           <nav className="navbar navbar-default landing-navbar">
               <div className="navbar-header">
+              <Link to="/">
                 <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
+              </Link>
               </div>
             <div className="landing-navbar-links navbar-right">
-              <Link className="sign-up-button " to='/logout'>LOGOUT</Link>
+              <button className="btn sign-up-button log" onClick={() => this.handleLogout()}>LOG OUT </button>
             </div>
           </nav>
 

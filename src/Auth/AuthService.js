@@ -9,7 +9,7 @@ import { AUTH_CONFIG } from './auth0-config';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-const SCOPE = 'YOUR_SCOPE';
+const SCOPE = 'openid profile email';
 const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
 
 var auth = new auth0.WebAuth({
@@ -22,36 +22,32 @@ export function login() {
     responseType: 'token id_token',
     redirectUri: AUTH_CONFIG.callbackUrl,
     //audience: AUDIENCE,
-    //scope: SCOPE
+    scope: SCOPE
   });
 }
 
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  
+
 }
 
-// class Logout extends Component {
-//
-//   constructor(props) {
-//     super(props);
-//     localStorage.removeItem('access_token');
-//     localStorage.removeItem('id_token');
-//     localStorage.removeItem('expires_at');
-//   }
-//
-//   render() {
-//     return (
-//       <Redirect to={{
-//         pathname: '/login',
-//         state: { from: this.props.location }
-//       }} />
-//     );
-//   }
-// }
-//
-// export default Logout;
+export function getProfile() {
+  var accessToken = localStorage.getItem('access_token');
+
+  if (!accessToken) {
+    console.log('Access Token must exist to fetch profile');
+  }
+
+  return auth.client.userInfo(accessToken, function(err, profile) {
+      console.log("profile");
+      console.log(profile);
+      if (profile) {
+        return profile;
+
+      }
+    });
+}
 
 export function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
@@ -91,6 +87,11 @@ export function setAccessToken() {
 export function setIdToken() {
   let idToken = getParameterByName('id_token');
   localStorage.setItem(ID_TOKEN_KEY, idToken);
+}
+
+export function getUserInfo(){
+  let idToken = getIdToken();
+  return decode(idToken);
 }
 
 export function isLoggedIn() {

@@ -1,5 +1,6 @@
-import { Component } from 'react';
-import { setIdToken, setAccessToken } from './AuthService';
+import React,{ Component } from 'react';
+import SelectCrypto from '../components/SelectCrypto';
+import { setIdToken, setAccessToken, getProfile, getUserInfo } from './AuthService';
 
 class Callback extends Component {
 
@@ -10,7 +11,7 @@ class Callback extends Component {
   componentDidMount() {
     setAccessToken();
     setIdToken();
-    window.location.href = "/";
+    window.location.href = "/select_crypto";
   }
 
   render() {

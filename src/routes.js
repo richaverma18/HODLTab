@@ -10,7 +10,7 @@ import SelectCrypto from './components/SelectCrypto';
 import CustomizeFeed from './components/CustomizeFeed';
 import Home from './components/Home';
 import Callback from './Auth/Callback';
-import { requireAuth } from './Auth/AuthService';
+import { requireAuth } from './Auth/AuthService.js';
 
 // const auth = new Auth();
 //
@@ -23,7 +23,6 @@ import { requireAuth } from './Auth/AuthService';
 export const makeMainRoutes = () => {
   return (
       <Router history={history} component={App}>
-        <div>
             <Switch>
               <Route exact path="/" component={App} />
               <Route path="/login" component={Login} />
@@ -33,7 +32,6 @@ export const makeMainRoutes = () => {
               <Route path="/home" component={Home} onEnter={requireAuth}/>
               <Route path="/callback" component={Callback} />
             </Switch>
-        </div>
       </Router>
   );
 }

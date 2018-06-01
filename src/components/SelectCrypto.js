@@ -4,7 +4,7 @@ import './SelectCrypto.css';
 import {getCryptoListings} from '../utils/crypto-listings.js';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
-
+import {getUserInfo} from '../Auth/AuthService';
 
 function Welcome(props){
   return(
@@ -16,7 +16,6 @@ function Welcome(props){
 }
 
 class SelectCrypto extends Component{
-
   constructor(props){
     super(props);
     this.state = {
@@ -55,7 +54,7 @@ getFilteredResults(query){
   const coins = this.state.data;
   for(var i=0; i< coins.length; i++)
   {
-    if(coins[i].name.includes(query)){
+    if(coins[i].name.toLowerCase().includes(query.toLowerCase())){
       a.push(coins[i]);
     }
   }
@@ -70,8 +69,8 @@ getFilteredResults(query){
 // handler to add coins:
   addCoin(coin_id) {
     this.setState({added_coins: this.state.added_coins.concat(coin_id)});
-    console.log(coin_id);
-    console.log(this.state.added_coins);
+    // console.log(coin_id);
+    // console.log(this.state.added_coins);
   }
 
   render() {
@@ -79,6 +78,10 @@ getFilteredResults(query){
     let startIndex = this.state.activePage * 10;
     let endIndex = startIndex + 10;
     let displayCoins = this.state.filtered_data.slice(startIndex, endIndex);
+
+    const user = getUserInfo();
+    console.log("in callback component");
+    console.log(user);
 
     // const username = JSON.parse(localStorage.getItem('profile'));
       const CoinSuggestions = displayCoins.map(r => (
@@ -94,11 +97,13 @@ getFilteredResults(query){
         <div className="crypto-container">
         <nav className="navbar navbar-default landing-navbar">
           <div className="navbar-header">
+          <Link to="/">
             <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
+          </Link>  
           </div>
           <Link className="navbar-right" style={{paddingRight: '30px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled}>NEXT</button></Link>
         </nav>
-        <Welcome username='Richa'/>
+        <Welcome username={user.nickname}/>
         <form>
           <div className="crypto-serach-div">
           <input

@@ -18,6 +18,7 @@ class App extends Component {
   handleLogout = () => {
     logout();
     this.setState({isLoggedIn: isLoggedIn()});
+    window.location.href = "/";
   }
 
   render() {
@@ -25,11 +26,13 @@ class App extends Component {
       <div className="crypto-container">
       <nav className="navbar navbar-default landing-navbar">
               <div className="navbar-header landing-navbar-brand">
+              <Link to="/">
               <img className="img-responsive" src="/HODLTAB.png" />
+              </Link>
             </div>
             <ul className="nav navbar-right landing-navbar-links">
               <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
-              <li><Link className="landing-navbar-links" to='/private'>Private</Link></li>
+              <li><Link className="landing-navbar-links" to='/home'>HOME</Link></li>
               <li>
                 {this.state.isLoggedIn ? ( <button className="btn sign-up-button log" onClick={() => this.handleLogout()}>LOG OUT </button> ) : ( <button className="sign-up-button" onClick={() => login()}>LOG IN/SIGN UP</button> )}
               </li>
@@ -48,11 +51,11 @@ class Content extends React.Component {
         <Grid className="container-custom">
           <Row>
             <Col sm={6}>
-              <code><p className="landing-content-header">The Crypto Traders Best Kept Secret</p></code>
-              <code><p className="landing-content">HODLTab is a new-tab Chrome extension that aggregates best content from 250+ sources for coins you want to track</p></code>
-                <Row>
+              <p className="landing-content-header">The Crypto Traders Best Kept Secret</p>
+              <p className="landing-content">HODLTab is a new-tab Chrome extension that aggregates best content from 250+ sources for coins you want to track</p>
+                <Row style={{paddingTop: '30px'}}>
                 <Col sm={6}><button className="landing-download-button" href="#"><img src="/chrome.png" /><p className="download-button-content">Download now</p></button></Col>
-                <Col sm={6} style={{paddingTop:'15px'}}><a href="#" className="landing-preview">See preview</a></Col>
+                <Col sm={6} style={{paddingTop:'12px'}}><a href="#" className="landing-preview">See preview</a></Col>
                 </Row>
             </Col>
             <Col sm={6}>

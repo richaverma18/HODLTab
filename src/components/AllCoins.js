@@ -63,7 +63,7 @@ getFilteredResults(query){
   const coins = this.state.data;
   for(var i=0; i< coins.length; i++)
   {
-    if(coins[i].name.includes(query)){
+    if(coins[i].name.toLowerCase().includes(query.toLowerCase())){
       a.push(coins[i]);
     }
   }
