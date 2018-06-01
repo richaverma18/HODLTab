@@ -1,4 +1,3 @@
-import CoinMarketCap from 'coinmarketcap-api';
 import axios from 'axios';
 
 function getCryptoListings(){
