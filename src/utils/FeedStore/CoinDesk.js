@@ -6,7 +6,19 @@ const COIN_DESK_FEED_API = 'https://www.coindesk.com/feed/';
 const COIN_TELEGRAPH_FEED_API = 'https://cointelegraph.com/rss';
 
 function getCoinDeskFeed(){
-   return axios.all([axios.get(COIN_DESK_FEED_API),axios.get(COIN_TELEGRAPH_FEED_API)])
+  const config = {
+      method: 'GET',
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+      credentials: 'same-origin',
+    };
+   return axios.all([
+     axios.get(COIN_DESK_FEED_API, config),
+     axios.get(COIN_TELEGRAPH_FEED_API, config)])
     .then(([coinDeskResponse, coinTelegraphResponse]) => {
       var parseString = parser.parseString;
       var coinDeskFeed = [];

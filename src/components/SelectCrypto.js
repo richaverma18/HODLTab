@@ -80,8 +80,8 @@ getFilteredResults(query){
     let displayCoins = this.state.filtered_data.slice(startIndex, endIndex);
 
     const user = getUserInfo();
-    console.log("in callback component");
-    console.log(user);
+    // console.log("in callback component");
+    // console.log(user);
 
     // const username = JSON.parse(localStorage.getItem('profile'));
       const CoinSuggestions = displayCoins.map(r => (
@@ -99,11 +99,11 @@ getFilteredResults(query){
           <div className="navbar-header">
           <Link to="/">
             <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
-          </Link>  
+          </Link>
           </div>
           <Link className="navbar-right" style={{paddingRight: '30px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled}>NEXT</button></Link>
         </nav>
-        <Welcome username={user.nickname}/>
+        <Welcome username={user.name}/>
         <form>
           <div className="crypto-serach-div">
           <input

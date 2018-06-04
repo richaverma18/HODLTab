@@ -2,8 +2,8 @@ import axios from 'axios';
 
 function getCryptoListings(){
   // var listings = [];
-  var id = 1;
-  console.log("https://api.coinmarketcap.com/v2/global/" + id.toString() +"/");
+  // var id = 1;
+  // console.log("https://api.coinmarketcap.com/v2/global/" + id.toString() +"/");
 
   return axios.get("https://api.coinmarketcap.com/v2/listings/").then(response => response.data);
   // return listings;
