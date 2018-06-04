@@ -17,8 +17,8 @@ function getCoinDeskFeed(){
       credentials: 'same-origin',
     };
    return axios.all([
-     axios.get(COIN_DESK_FEED_API, config),
-     axios.get(COIN_TELEGRAPH_FEED_API, config)])
+     axios.get(COIN_DESK_FEED_API),
+     axios.get(COIN_TELEGRAPH_FEED_API)])
     .then(([coinDeskResponse, coinTelegraphResponse]) => {
       var parseString = parser.parseString;
       var coinDeskFeed = [];
