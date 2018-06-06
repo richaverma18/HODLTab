@@ -23,7 +23,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="crypto-container">
+      <div>
       <nav className="navbar navbar-default landing-navbar">
               <div className="navbar-header landing-navbar-brand">
               <Link to="/">
@@ -50,15 +50,15 @@ class Content extends React.Component {
       return (
         <Grid className="container-custom">
           <Row>
-            <Col sm={6}>
-              <p className="landing-content-header">The Crypto Traders Best Kept Secret</p>
+            <Col sm={5}>
+              <p className="landing-content-header">The Crypto Trader{'\''}s Best Kept Secret</p>
               <p className="landing-content">HODLTab is a new-tab Chrome extension that aggregates best content from 250+ sources for coins you want to track</p>
                 <Row style={{paddingTop: '30px'}}>
-                <Col sm={6}><button className="landing-download-button" href="#"><img src="/chrome.png" /><p className="download-button-content">Download now</p></button></Col>
-                <Col sm={6} style={{paddingTop:'12px'}}><a href="#" className="landing-preview">See preview</a></Col>
+                <Col sm={8}><button className="landing-download-button" href="#"><img src="/chrome.png" /><span className="download-button-content">Download now</span></button></Col>
+                <Col sm={4} style={{paddingTop:'20px'}}><a href="#" className="landing-preview">See preview</a></Col>
                 </Row>
             </Col>
-            <Col sm={6}>
+            <Col sm={7} style={{paddingRight:'0px'}}>
               <Image className="landing-image img-responsive" src="/Rectangle 2.png" />
             </Col>
           </Row>
