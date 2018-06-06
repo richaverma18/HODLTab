@@ -86,7 +86,8 @@ getFilteredResults(query){
     // const username = JSON.parse(localStorage.getItem('profile'));
       const CoinSuggestions = displayCoins.map(r => (
         <div key={r.id} className="crypto-coin-suggestion">
-        {r.name}  {r.symbol}
+        {r.name}
+        <span className="crypto-coin-symbol">{r.symbol}</span>
         <button className={this.state.added_coins.includes(r.id) ? "added-coin-button" : "add-coin-button" } onClick={() => this.addCoin(r.id)}><img src={this.state.added_coins.includes(r.id) ? "/coin_added.svg" : "/add_button.svg"}/></button>
         </div>
       ));
@@ -95,20 +96,20 @@ getFilteredResults(query){
 
       return (
         <div className="crypto-container">
-        <nav className="navbar navbar-default landing-navbar">
+        <nav className="navbar navbar-default crypto-navbar">
           <div className="navbar-header">
           <Link to="/">
             <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
           </Link>
           </div>
-          <Link className="navbar-right" style={{paddingRight: '30px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled}>NEXT</button></Link>
+          <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled}>Next</button></Link>
         </nav>
         <Welcome username={user.name}/>
         <form>
           <div className="crypto-serach-div">
           <input
             className="crypto-search-box"
-            placeholder="Search for a coin.."
+            placeholder="Search for a coin"
             ref={input => this.search = input}
             onChange={this.handleInputChange}
           />
