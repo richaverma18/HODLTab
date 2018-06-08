@@ -112,7 +112,7 @@ getFilteredResults(query){
               <div className="home-serach-div">
               <input
                 className="home-search"
-                placeholder="Search for a coin.."
+                placeholder="Search for a coin"
                 ref={input => this.search = input}
                 onChange={this.handleInputChange}
               />
