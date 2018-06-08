@@ -33,10 +33,10 @@ class Home extends Component{
 
       return (
         <div className="crypto-container">
-          <nav className="navbar navbar-default landing-navbar">
+          <nav className="navbar navbar-default crypto-navbar">
               <div className="navbar-header">
               <Link to="/">
-                <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
+                <img className="img-responsive" style={{paddingTop:'10px'}} src="/HODLTAB.png" />
               </Link>
               </div>
             <div className="landing-navbar-links navbar-right">

@@ -2,40 +2,34 @@ import React from 'react';
 import './NewsFeed.css';
 function NewsFeed(props) {
 
-  // var tags = [];
-  // for(let i=0;i<props.data.tags.length; i++){
-  //   tags.push(<div key={tag} className="news-feed-tags"><p> {props.data.tags[i]} </p></div>);
-  // }
-  const tags = props.data.tags.map(tag => (<div key={tag} className="news-feed-tags">
+  const tags = props.data.tags.map(tag => (<div key={tag} className="news-feed-tag">
   <p> {tag} </p></div>));
   var style;
   if(props.data.image){
-    style={marginLeft: '0px', backgroundImage: "url(" + props.data.image + ")",backgroundSize: 'cover', height: '112px', width: '285px'};
+    style={marginLeft: '0px', backgroundImage: "url(" + props.data.image + ")",backgroundSize: 'cover', height: '112px', width: '285px', webkitBorderRadius: '4px 4px 0px 0px', borderRadius: '4px 4px 0px 0px'};
   }
   else {
-    style={marginLeft: '10px'};
+    style={marginLeft: '0px'};
   }
-  //
-  // function redirectToLink(link){
-  //
-  // }
 
   return (
     <div className="col-sm-4">
       <div className="news-feed-div">
-        <div className="row" style={style}>{tags}</div>
+        <div className="row" style={style}><div className="news-feed-tags">{tags}</div></div>
         <div className="news-feed-title">
           <a className="news-feed-link" href={props.data.link} target="_blank">
-          {props.data.title}
+            {props.data.title}
           </a>
         </div>
         <div className="news-feed-description">
           {props.data.description}
         </div>
-        <div className="news-feed-bottom">
+        <div className="row news-feed-bottom">
+          <div className="col-sm-8" style={{display:'inline-flex', paddingLeft: '0px'}}>
           <img className="news-feed-logo" src={props.data.siteLogo}/>
           <p className="news-feed-source">{props.data.siteName}</p>
-          <p className="news-feed-pub-time">{convertPubDate(props.data.pubDate)} ago</p>
+          </div>
+          <div className="col-sm-4 news-feed-pub-time"><span style={{float: 'right'}}>{convertPubDate(props.data.pubDate)} ago</span></div>
         </div>
       </div>
     </div>

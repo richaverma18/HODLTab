@@ -2,7 +2,7 @@
   /* padding-right: 30px; */
   color:  #FFFFFF;
   background-color: #645997;
-  /* border: 1px solid #645997; */
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   padding: 7px 30px 8px 29px;
@@ -14,6 +14,7 @@
 
 .disabled-next-button{
   background: rgba(100, 89, 151, 0.5);
+  border: none;
 }
 
 .crypto-welcome-header{

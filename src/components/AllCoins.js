@@ -76,7 +76,7 @@ getFilteredResults(query){
     const CoinSuggestions = this.state.filtered_data.map(r => (
       <div key={r.id} className="home-coin-div">
             <Row className="coin-div">
-              <Col sm={2} style={{verticalAlign: 'center'}}> {r.rank} </Col>
+              <Col sm={2}><div className="home-coin-rank"> {r.rank} </div></Col>
               <Col sm={10}>
               <Row>
               <div style={{display:'inline-flex'}}>
@@ -84,7 +84,7 @@ getFilteredResults(query){
                   <p className="coin-symbol">{r.symbol}</p>
                   <button className={this.state.added_coins.includes(r.id) ? "home-added-coin-button" : "home-add-coin-button" } onClick={() => this.addCoin(r.id)}><img style={{marginBottom: '8px'}} src={this.state.added_coins.includes(r.id) ? "/home_coin_added.svg" : "/home_add_coin.svg"}/></button>
               </div>
-              <div style={{float:'right'}}>${formatToUnits(r.quotes.USD.market_cap)}</div>
+              <div className="home-coin-market-cap">${formatToUnits(r.quotes.USD.market_cap)}</div>
               </Row>
               <Row>
               <div style={{display:'inline-flex'}}>
