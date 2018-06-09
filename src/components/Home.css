@@ -1,9 +1,10 @@
 .nav-tabs {
-   border-bottom: 2px solid #DDD;
+   border-bottom: 0px;
  }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
    border-width: 0;
+   background: #645997;
  }
 
 .nav-tabs > li > a {
@@ -11,6 +12,7 @@
    color: #645997;
    font-size: 14px;
    font-family: 'Karla';
+   background-color: transparent;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li > a:hover {
@@ -29,7 +31,7 @@
    position: absolute;
    width: 100%;
    left: 0px;
-   bottom: -1px;
+   bottom: -8px;
    transition: all 250ms ease 0s;
    transform: scale(0);
  }
@@ -42,7 +44,7 @@
  }
 
 .tab-pane {
-   padding: 50px 0;
+   padding: 0;
 }
 
 /* .tab-content{
@@ -61,7 +63,13 @@
   margin-bottom: 0px;
 }
 
-.card {background: #F7F7F7 none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; padding: 50px;}
+.card {background: #F7F7F7 none repeat scroll 0% 0%;  margin-bottom: 30px; padding: 50px;}
+
+/* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); */
+
+.card-content{
+  margin-left: 0px;
+}
 
 .custom-tab-text{
   font-size: 14px;

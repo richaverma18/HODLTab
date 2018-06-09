@@ -6,7 +6,7 @@ function NewsFeed(props) {
   <p> {tag} </p></div>));
   var style;
   if(props.data.image){
-    style={marginLeft: '0px', backgroundImage: "url(" + props.data.image + ")",backgroundSize: 'cover', height: '112px', width: '285px', webkitBorderRadius: '4px 4px 0px 0px', borderRadius: '4px 4px 0px 0px'};
+    style={marginLeft: '0px', backgroundImage: "url(" + props.data.image + ")",backgroundSize: 'cover', height: '112px', width: '285px', WebkitBorderRadius: '4px 4px 0px 0px', borderRadius: '4px 4px 0px 0px'};
   }
   else {
     style={marginLeft: '0px'};
