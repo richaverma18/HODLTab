@@ -8,17 +8,19 @@ const COIN_TELEGRAPH_FEED_API = 'https://cointelegraph.com/rss';
 function getCoinDeskFeed(){
   const config = {
       method: 'GET',
-      mode: 'no-cors',
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/xml',
       },
       withCredentials: true,
       credentials: 'same-origin',
     };
    return axios.all([
-     axios.get(COIN_DESK_FEED_API),
-     axios.get(COIN_TELEGRAPH_FEED_API)])
+     axios.get(COIN_DESK_FEED_API, {headers: {
+       'Content-Type': 'application/xml',
+     }}),
+     axios.get(COIN_TELEGRAPH_FEED_API, {headers: {
+       'Content-Type': 'application/xml',
+     }})])
     .then(([coinDeskResponse, coinTelegraphResponse]) => {
       var parseString = parser.parseString;
       var coinDeskFeed = [];
