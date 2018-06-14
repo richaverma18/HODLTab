@@ -16,6 +16,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
+    "request": "^2.87.0",
     "xml2js": "^0.4.19",
     "xml2json": "^0.11.2"
   },
@@ -25,5 +26,18 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://www.coindesk.com/feed/ https://cointelegraph.com/rss"
+  "proxy": "http://localhost:3333",
+  "description": "chrome extension for crypto traders",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richaverma18/HODLTab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richaverma18/HODLTab/issues"
+  },
+  "homepage": "https://github.com/richaverma18/HODLTab#readme"
 }

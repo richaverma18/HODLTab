@@ -1,6 +1,6 @@
 const VALID_TAGS = ['XRP','Bitcoin','EOS','Ethereum', 'Ethereum Classic','BitGo','Abra',"Altcoin", "ICO","Blockchain", "R3","Corda","Ripple","Bitcoin Cash","Litecoin","Cardano"];
 
-function formatCoinDeskFeed(data){
+ module.exports.formatCoinDeskFeed = function(data){
 
   var coinDeskFeed = [];
 
@@ -21,9 +21,9 @@ function formatCoinDeskFeed(data){
     coinDeskFeed.push(feedItem);
   }
   return coinDeskFeed;
-}
+};
 
-function formatCoinTelegraphFeed(data){
+module.exports.formatCoinTelegraphFeed = function(data){
   var coinTelegraphFeed = [];
 
   for(let i=0; i< data.item.length; i++){
@@ -52,7 +52,21 @@ function formatCoinTelegraphFeed(data){
     coinTelegraphFeed.push(feedItem);
   }
   return coinTelegraphFeed;
-}
+};
 
+module.exports.shuffle = function(arr) {
+    let ctr = arr.length;
+    let temp;
+    let index;
 
-export {formatCoinDeskFeed, formatCoinTelegraphFeed};
+    while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = arr[ctr];
+        arr[ctr] = arr[index];
+        arr[index] = temp;
+    }
+    return arr;
+};
+//
+// export {formatCoinDeskFeed, formatCoinTelegraphFeed, shuffle};
