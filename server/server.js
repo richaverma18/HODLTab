@@ -56,5 +56,5 @@ app.get('/api/news_feed', (req, res) => {
    });
 })
 
-app.listen(3333);
+app.listen(3333, 'localhost');
 console.log('Listening on localhost:3333');
