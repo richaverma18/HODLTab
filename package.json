@@ -4,10 +4,7 @@
   "private": true,
   "dependencies": {
     "auth0-js": "^9.5.1",
-    "auth0-lock": "^11.6.1",
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.1",
-    "coinmarketcap-api": "^2.0.1",
     "jwt-decode": "^2.2.0",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
@@ -16,9 +13,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "request": "^2.87.0",
-    "xml2js": "^0.4.19",
-    "xml2json": "^0.11.2"
+    "xml2js": "^0.4.19"
   },
   "scripts": {
     "start": "react-scripts start",

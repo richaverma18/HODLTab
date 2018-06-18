@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Grid, Row, Col,Tabs, Tab} from 'react-bootstrap';
-import isAuthenticated from '../Auth/isAuthenticated';
 import AllCoins from './AllCoins';
 import MyCoins from './MyCoins';
 import './Home.css';
