@@ -16,6 +16,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+app.set("port", process.env.PORT || 3001);
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+}
+
 const authCheck = jwt({
   secret: jwks.expressJwtSecret({
         cache: true,
@@ -51,5 +57,6 @@ app.get('/api/news_feed', (req, res) => {
    });
 })
 
-app.listen(3333, 'localhost');
-console.log('Listening on localhost:3333');
+app.listen(app.get("port"), () => {
+  console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
+});
