@@ -59,7 +59,7 @@ class Content extends React.Component {
                 </Row>
             </Col>
             <Col sm={7} style={{paddingRight:'0px'}}>
-              <Image className="landing-image img-responsive" src="/Rectangle 2.png" />
+              <img className="landing-image" src="/Rectangle.png" />
             </Col>
           </Row>
         </Grid>

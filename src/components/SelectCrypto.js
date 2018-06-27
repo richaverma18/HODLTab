@@ -5,6 +5,7 @@ import {getCryptoListings} from '../utils/crypto-listings.js';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
 import {getUserInfo} from '../Auth/AuthService';
+import {addUserCoinsAPI} from '../utils/UserAPIHandler';
 
 function Welcome(props){
   return(
@@ -62,15 +63,21 @@ getFilteredResults(query){
 }
 
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
+    // console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
   }
 
 // handler to add coins:
-  addCoin(coin_id) {
-    this.setState({added_coins: this.state.added_coins.concat(coin_id)});
+  addCoin(coin) {
+    this.setState({added_coins: this.state.added_coins.concat(coin)});
     // console.log(coin_id);
     // console.log(this.state.added_coins);
+  }
+
+  addUserCoins(){
+    // console.log(this.state.added_coins);
+    // console.log(this.props.location.state.user_id);
+    addUserCoinsAPI({user_id: this.props.location.state.user_id, coins: this.state.added_coins});
   }
 
   render() {
@@ -88,7 +95,7 @@ getFilteredResults(query){
         <div key={r.id} className="crypto-coin-suggestion">
         {r.name}
         <span className="crypto-coin-symbol">{r.symbol}</span>
-        <button className={this.state.added_coins.includes(r.id) ? "added-coin-button" : "add-coin-button" } onClick={() => this.addCoin(r.id)}><img src={this.state.added_coins.includes(r.id) ? "/coin_added.svg" : "/add_button.svg"}/></button>
+        <button className={this.state.added_coins.map(coin => coin.id).includes(r.id) ? "added-coin-button" : "add-coin-button" } onClick={() => this.addCoin(r)}><img src={this.state.added_coins.includes(r) ? "/coin_added.svg" : "/add_button.svg"}/></button>
         </div>
       ));
 
@@ -102,7 +109,7 @@ getFilteredResults(query){
             <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
           </Link>
           </div>
-          <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled}>Next</button></Link>
+          <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to='/home'><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled} onClick={()=>this.addUserCoins()}>Next</button></Link>
         </nav>
         <Welcome username={user.name}/>
         <form>
