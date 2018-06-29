@@ -41,10 +41,10 @@ class Callback extends Component {
   getNextPage(){
     if (this.state.user){
       if(this.state.user.coins && this.state.user.coins.length > 0){
-        return <div><Redirect to={{pathname: '/home', state: {user: this.state.user}}} /></div>;
+        return <Redirect to={{pathname: '/home', state: {user: this.state.user}}} />;
       }
       else{
-        return <div><Redirect to={{pathname: '/select_crypto', state: {user_id: this.state.user.id}}}/></div>;
+        return <Redirect to={{pathname: '/select_crypto', state: {user_id: this.state.user.id}}}/>;
       }
     }else{
       return null;
@@ -54,7 +54,7 @@ class Callback extends Component {
   render() {
     const Page = this.getNextPage();
     return (
-      {Page}
+      <div>{Page}</div>
     )
   }
 }
