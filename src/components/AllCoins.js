@@ -4,6 +4,8 @@ import {getGlobalData, getTickerData} from '../utils/crypto-listings.js';
 import {getCoinDeskFeed} from '../utils/FeedStore/CoinDesk.js';
 import parser from 'xml2js';
 import NewsFeed from './NewsFeed.js';
+import CoinSuggestions from './CoinSuggestions.js';
+import {formatToUnits} from '../utils/Formatter.js';
 
 
 class AllCoins extends Component {
@@ -36,6 +38,7 @@ class AllCoins extends Component {
       this.setState({data: listings.data, filtered_data: listings.data});
     });
   }
+  
 
   componentDidMount() {
     getGlobalData().then((data) => {this.setState({globalData: data.data})});
@@ -72,53 +75,23 @@ getFilteredResults(query){
 
 
   render(){
-
-    const CoinSuggestions = this.state.filtered_data.map(r => (
-      <div key={r.id} className="home-coin-div">
-            <Row className="coin-div">
-              <Col sm={2}><div className="home-coin-rank"> {r.rank} </div></Col>
-              <Col sm={10}>
-              <Row>
-              <div style={{display:'inline-flex'}}>
-                  <p className="coin-name">{r.name}</p>
-                  <p className="coin-symbol">{r.symbol}</p>
-                  <button className={this.state.added_coins.includes(r.id) ? "home-added-coin-button" : "home-add-coin-button" } onClick={() => this.addCoin(r.id)}><img style={{marginBottom: '8px'}} src={this.state.added_coins.includes(r.id) ? "/home_coin_added.svg" : "/home_add_coin.svg"}/></button>
-              </div>
-              <div className="home-coin-market-cap">${formatToUnits(r.quotes.USD.market_cap)}</div>
-              </Row>
-              <Row>
-              <div style={{display:'inline-flex'}}>
-                <p className="coin-price">${r.quotes.USD.price} </p>
-                <p className={(r.quotes.USD.percent_change_1h > 0) ? "coin-percentage_increase" : "coin-percentage_decrease"}>({r.quotes.USD.percent_change_1h}%)</p>
-              </div>
-              <div className="coin-volume_24h">
-                <p>${formatToUnits(r.quotes.USD.volume_24h)}</p>
-              </div>
-              </Row>
-              </Col>
-          </Row>
-
-        </div>
-    ));
-
     return(
       <div>
       <Grid>
         <Row>
           <Col md={4}>
-
-            <GlobalData data={this.state.globalData}/>
-            <form>
-              <div className="home-serach-div">
-              <input
-                className="home-search"
-                placeholder="Search for a coin"
-                ref={input => this.search = input}
-                onChange={this.handleInputChange}
-              />
-              </div>
-            </form>
-            {CoinSuggestions}
+          <GlobalData data={this.state.globalData}/>
+          <form>
+          <div className="home-serach-div">
+            <input
+              className="home-search"
+              placeholder="Search for a coin"
+              ref={input => this.search = input}
+              onChange={this.handleInputChange}
+            />
+            </div>
+          </form>
+            {CoinSuggestions(this.state.filtered_data)}
           </Col>
           <Col md={8}>
             <div className="row">
@@ -130,13 +103,6 @@ getFilteredResults(query){
       </div>
     )
   }
-}
-
-function formatToUnits(number) {
-  const abbrev = ['', 'K', 'M', 'B', 'T'];
-  const order = Math.min(Math.floor(Math.log10(Math.abs(number)) / 3), abbrev.length - 1);
-  const suffix = abbrev[order];
-  return (number / Math.pow(10, order * 3)).toFixed(2) + suffix;
 }
 
 function DisplayNewsFeed(props) {

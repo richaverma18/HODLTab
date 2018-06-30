@@ -91,7 +91,13 @@ export function setIdToken() {
 
 export function getUserInfo(){
   let idToken = getIdToken();
-  return decode(idToken);
+
+  if (!idToken) {
+    // console.log('Access Token must exist to fetch profile');
+    return null;
+  }else{
+      return decode(idToken);
+  }
 }
 
 export function isLoggedIn() {

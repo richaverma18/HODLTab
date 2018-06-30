@@ -4,10 +4,8 @@ import {Grid, Row, Col,Tabs, Tab} from 'react-bootstrap';
 import AllCoins from './AllCoins';
 import MyCoins from './MyCoins';
 import './Home.css';
-import { logout, isLoggedIn } from '../Auth/AuthService';
-
-
-
+import { logout, isLoggedIn, getUserInfo } from '../Auth/AuthService';
+import {getUserProfile} from '../utils/UserAPIHandler';
 
 class Home extends Component{
     constructor(props){
@@ -15,7 +13,8 @@ class Home extends Component{
       this.handleSelect = this.handleSelect.bind(this);
       this.state = {
         key: 2,
-        isLoggedIn: isLoggedIn()
+        isLoggedIn: isLoggedIn(),
+        user: {}
       };
     }
     handleSelect(key) {
@@ -44,7 +43,9 @@ class Home extends Component{
 
 
     render() {
-
+      // console.log("home my coins user props");
+      // console.log(this.props.params.user);
+      // console.log(this.props.location.state.user);
       return (
         <div className="crypto-container">
           <nav className="navbar navbar-default crypto-navbar">

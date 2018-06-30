@@ -39,7 +39,7 @@ class Callback extends Component {
   }
 
   getNextPage(){
-    if (this.state.user){
+    if (this.state.user.id){
       if(this.state.user.coins && this.state.user.coins.length > 0){
         return <Redirect to={{pathname: '/home', state: {user: this.state.user}}} />;
       }
