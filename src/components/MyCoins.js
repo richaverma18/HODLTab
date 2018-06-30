@@ -24,14 +24,16 @@ class MyCoins extends Component {
   getCoinsData(coin_ids){
     getTickerData(null).then((listings) => {
       let a = [];
-      for(var i=0; i< coin_ids.length; i++)
+      for(var i=0; i< listings.data.length; i++)
       {
-        a.push(listings.data[coin_ids[i]]);
-        console.log(a);
+        if(coin_ids.includes(listings.data[i].id) ){
+            a.push(listings.data[i]);
+            // console.log(a);
+        }
       }
       this.setState({coins: a});
-      console.log(listings.data);
-      console.log(this.state);
+      // console.log(listings.data);
+      // console.log(this.state);
     });
   }
 
@@ -42,11 +44,12 @@ class MyCoins extends Component {
     }
     else{
       getUserProfile(auth_user.email).then(user => {
-        console.log(user);
+        // console.log(user);
         this.setState({user: user});
         if(user.coins){
-          console.log(user.coins);
-          this.getCoinsData(user.coins);
+          // console.log("user coins");
+          // console.log(user.coins);
+          this.getCoinsData(user.coins.map(coin => coin.market_cap_id));
         }
       });
     }

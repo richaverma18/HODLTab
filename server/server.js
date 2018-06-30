@@ -81,11 +81,12 @@ app.get('/api/user_profile', (req, res) =>{
       // console.log("user from sql");
       if(result.length > 0){
         // console.log(result[0]);
-        let user_coins_query = "select * from user_coins where user_id = " + result[0].id ;
+        let user_coins_query = "select coins.id,coins.market_cap_id from coins, user_coins where coins.id = user_coins.coin_id AND user_coins.user_id = " + result[0].id ;
         con.query(user_coins_query, function(err, user_coins){
           if (err) throw err;
           // console.log(user_coins.map(coin => coin.coin_id));
-          result[0]['coins'] = user_coins.map(coin => coin.coin_id);
+          // console.log(user_coins);
+          result[0]['coins'] = user_coins;
           // console.log(result[0]);
           res.json(result[0]);
         })
