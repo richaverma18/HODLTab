@@ -38,14 +38,14 @@ class AllCoins extends Component {
       this.setState({data: listings.data, filtered_data: listings.data});
     });
   }
-  
+
 
   componentDidMount() {
     getGlobalData().then((data) => {this.setState({globalData: data.data})});
 
     getCoinDeskFeed().then((value) => {
       this.setState({newsFeed: value});
-  });
+    });
     this.getTickerData(null);
   }
 

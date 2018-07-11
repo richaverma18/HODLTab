@@ -93,7 +93,7 @@ export function getUserInfo(){
   let idToken = getIdToken();
 
   if (!idToken) {
-    // console.log('Access Token must exist to fetch profile');
+    login();
     return null;
   }else{
       return decode(idToken);

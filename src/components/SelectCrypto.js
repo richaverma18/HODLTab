@@ -109,7 +109,7 @@ getFilteredResults(query){
             <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
           </Link>
           </div>
-          <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to='/home' params={{ user: {id: this.props.location.state.user_id, coins: this.state.added_coins} }}><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled} onClick={()=>this.addUserCoins()}>Next</button></Link>
+          <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to={{pathname: '/customize_feed',state: {id: this.props.location.state.user_id } }}><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled} onClick={()=>this.addUserCoins()}>Next</button></Link>
         </nav>
         <Welcome username={user.name}/>
         <form>

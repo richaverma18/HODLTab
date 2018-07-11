@@ -70,6 +70,14 @@ var con = mysql.createConnection({
 //   console.log("Connected!");
 // }
 
+app.get('/api/sources', (req, res) => {
+  var sql = "SELECT * from news_sources";
+  con.query(sql, function(err, result){
+    if (err) throw err;
+    res.json(result);
+  })
+})
+
 app.get('/api/user_profile', (req, res) =>{
 // console.log("reaching here");
     let email = req.query.email;
@@ -143,28 +151,29 @@ function add_user_coin(coin_id, user_id){
   });
 }
 
-
-
-
 app.post('/api/add_coins', (req,res) => {
-  // console.log("added coins");
-  // console.log(req.body);
   req.body.coins.map(coin => {
     getCoin(coin.id).then(coinDB => {
-      // console.log(coinDB);
       if(coinDB.length > 0){
           add_user_coin(coinDB[0].id, req.body.user_id);
       }else{
         let add_coin_query = 'insert into coins(name,market_cap_id) values(\'' +  coin.name + '\',\'' + coin.id + '\')';
         con.query(add_coin_query, function (err, result) {
           if (err) throw err;
-          // console.log(" created coin in sql");
-          // console.log(result.insertId);
           add_user_coin(result.insertId, req.body.user_id);
       });
     }
     });
 });
+})
+
+app.post('/api/add_sources', (req,res) => {
+  req.body.source_ids.map(source_id => {
+    let sql = 'insert into user_feed_sources(user_id, news_source_id) values(' + req.body.user_id + ',' + source_id + ')';
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+  });
+  })
 })
 
 app.listen(app.get("port"), () => {
