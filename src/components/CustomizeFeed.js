@@ -12,7 +12,8 @@ class CustomizeFeed extends Component{
     super(props);
     this.state={
       sources: [],
-      added_sources: []
+      added_sources: [],
+      filtered_sources: []
     };
   }
 
@@ -20,7 +21,7 @@ class CustomizeFeed extends Component{
     // console.log(this.props.location.state.id);
     getNewsFeedSources().then((value) => {
       console.log(value);
-      this.setState({sources: value});
+      this.setState({sources: value, filtered_sources:value});
     });
 
     // getAddedSources(this.props.location.state.id).then((value) => {
@@ -39,6 +40,39 @@ class CustomizeFeed extends Component{
     addSources({user_id: this.props.location.state.id, source_ids: this.state.added_sources});
   }
 
+  filterSources(category){
+    var a = [];
+    const sources = this.state.sources;
+    for(var i=0; i< sources.length; i++)
+    {
+      if(sources[i].category.toLowerCase().includes(category.toLowerCase())){
+        a.push(sources[i]);
+      }
+    }
+    this.setState({filtered_sources: a});
+  }
+
+  handleInputChange = () => {
+    let query = this.search.value;
+    if (query && query.length > 1) {
+      this.getFilteredResults(query);
+    } else if (!query) {
+      this.setState({filtered_sources: this.state.sources});
+    }
+  }
+  
+getFilteredResults(query){
+  var a = [];
+  const sources = this.state.sources;
+  for(var i=0; i< sources.length; i++)
+  {
+    if(sources[i].name.toLowerCase().includes(query.toLowerCase())){
+      a.push(sources[i]);
+    }
+  }
+  this.setState({filtered_sources: a});
+}
+
 
   render() {
 
@@ -54,27 +88,27 @@ class CustomizeFeed extends Component{
           <div className="crypto-welcome-text"><p>Here are some sources we’ve picked for you. <br/> Again, you can always change these later!</p> </div>
           <Grid className="container-custom">
             <Row style={{paddingBottom: '40px'}}>
-              <Col sm={8}>
-                <button className="all-sources">All Sources</button>
-                <button className="categories">News</button>
-                <button className="categories">Twitter</button>
-                <button className="categories">Reddit</button>
-                <button className="categories">Youtube</button>
-                <button className="categories">Facebook</button>
+              <Col sm={7}>
+                <button className="all-sources" onClick={() => this.filterSources('')}>All Sources</button>
+                <button className="categories" onClick={() => this.filterSources('News')}>News</button>
+                <button className="categories" onClick={() => this.filterSources('Twitter')}>Twitter</button>
+                <button className="categories" onClick={() => this.filterSources('Reddit')}>Reddit</button>
+                <button className="categories" onClick={() => this.filterSources('YouTube')}>YouTube</button>
                 </Col>
-              <Col sm={4}>
+              <Col sm={5}>
               <form>
                 <input
                   className="customize-feed-search-box"
                   placeholder="Search for a source"
                   ref={input => this.search = input}
+                  onChange={this.handleInputChange}
                 />
 
               </form>
               </Col>
             </Row>
             <Row>
-              {this.state.sources.map(source => (
+              {this.state.filtered_sources.map(source => (
                 <div key={source.id} className="col-sm-4">
                   <div className="source-div">
                     <Row>
