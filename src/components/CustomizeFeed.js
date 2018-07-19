@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Grid, Row, Col, Image} from 'react-bootstrap';
 import './CustomizeFeed.css';
-import {getNewsFeedSources, getAddedSources} from '../utils/FeedStore/CoinDesk.js';
+import {getNewsFeedSources, getAddedSources, getRedditFeeds} from '../utils/FeedStore/CoinDesk.js';
 import {addSources} from '../utils/UserAPIHandler';
-
+import {getUserID} from '../Auth/AuthService';
 
 class CustomizeFeed extends Component{
 
@@ -18,26 +18,18 @@ class CustomizeFeed extends Component{
   }
 
   componentDidMount(){
-    // console.log(this.props.location.state.id);
     getNewsFeedSources().then((value) => {
-      console.log(value);
       this.setState({sources: value, filtered_sources:value});
     });
-
-    // getAddedSources(this.props.location.state.id).then((value) => {
-    //   console.log(value);
-    //   this.setState({added_sources: value});
-    // });
-
   }
 
   addSource(source_id) {
     this.setState({added_sources: this.state.added_sources.concat(source_id)});
   }
 
-  addSources(){
-    console.log(this.props.location.state.id);
-    addSources({user_id: this.props.location.state.id, source_ids: this.state.added_sources});
+  addSourcesForUser(){
+    let user_id = (this.props.location.state && this.props.location.state.id) ? this.props.location.state.id : getUserID();
+    addSources({user_id: user_id, source_ids: this.state.added_sources});
   }
 
   filterSources(category){
@@ -60,7 +52,7 @@ class CustomizeFeed extends Component{
       this.setState({filtered_sources: this.state.sources});
     }
   }
-  
+
 getFilteredResults(query){
   var a = [];
   const sources = this.state.sources;
@@ -82,11 +74,11 @@ getFilteredResults(query){
             <div className="navbar-header">
               <img className="img-responsive" style={{paddingTop:'5px'}} src="/HODLTAB.png" />
             </div>
-            <Link className="navbar-right" style={{paddingRight: '30px', marginTop:'-4px'}} to='/home'><button className="next-button" onClick={() => this.addSources()}>NEXT</button></Link>
+            <Link className="navbar-right" style={{paddingRight: '30px', marginTop:'-4px'}} to='/home'><button className="next-button" onClick={() => this.addSourcesForUser()}>NEXT</button></Link>
           </nav>
           <div className="crypto-welcome-header"><p>Customize your feed</p></div>
           <div className="crypto-welcome-text"><p>Here are some sources we’ve picked for you. <br/> Again, you can always change these later!</p> </div>
-          <Grid className="container-custom">
+          <Grid className="container-customize-feed">
             <Row style={{paddingBottom: '40px'}}>
               <Col sm={7}>
                 <button className="all-sources" onClick={() => this.filterSources('')}>All Sources</button>
@@ -95,7 +87,7 @@ getFilteredResults(query){
                 <button className="categories" onClick={() => this.filterSources('Reddit')}>Reddit</button>
                 <button className="categories" onClick={() => this.filterSources('YouTube')}>YouTube</button>
                 </Col>
-              <Col sm={5}>
+              <Col sm={5} className="search-div">
               <form>
                 <input
                   className="customize-feed-search-box"

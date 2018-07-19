@@ -3,7 +3,7 @@ import {getUserProfile} from '../utils/UserAPIHandler';
 import { login, logout, isLoggedIn, getUserInfo } from '../Auth/AuthService';
 import {Grid, Row, Col} from 'react-bootstrap';
 // import {getGlobalData, getTickerData} from '../utils/crypto-listings.js';
-import {getCoinDeskFeed} from '../utils/FeedStore/CoinDesk.js';
+import {getFeedForSources} from '../utils/FeedStore/CoinDesk.js';
 import parser from 'xml2js';
 import NewsFeed from './NewsFeed.js';
 import CoinSuggestions from './CoinSuggestions.js';
@@ -44,18 +44,18 @@ class MyCoins extends Component {
     }
     else{
       getUserProfile(auth_user.email).then(user => {
-        // console.log(user);
+        console.log(user);
         this.setState({user: user});
         if(user.coins){
-          // console.log("user coins");
-          // console.log(user.coins);
           this.getCoinsData(user.coins.map(coin => coin.market_cap_id));
+        }
+        if(user.news_sources.length > 0){
+          getFeedForSources(user.news_sources).then(value => {
+            this.setState({newsFeed: value});
+          });
         }
       });
     }
-    getCoinDeskFeed().then((value) => {
-      this.setState({newsFeed: value});
-  });
   }
 
   render(){

@@ -12,6 +12,8 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const SCOPE = 'openid profile email';
 const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
 
+const USER_ID = 'user_id';
+
 var auth = new auth0.WebAuth({
   clientID: AUTH_CONFIG.clientId,
   domain: AUTH_CONFIG.domain
@@ -97,6 +99,18 @@ export function getUserInfo(){
     return null;
   }else{
       return decode(idToken);
+  }
+}
+
+export function getUserID(){
+  let id = localStorage.getItem(USER_ID);
+  console.log(id);
+  if(!id){
+    login();
+  }
+  else{
+    console.log("in get item user id");
+    return id;
   }
 }
 

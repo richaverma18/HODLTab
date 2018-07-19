@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import {getGlobalData, getTickerData} from '../utils/crypto-listings.js';
-import {getCoinDeskFeed} from '../utils/FeedStore/CoinDesk.js';
+import {getFeedForSources} from '../utils/FeedStore/CoinDesk.js';
 import parser from 'xml2js';
 import NewsFeed from './NewsFeed.js';
 import CoinSuggestions from './CoinSuggestions.js';
 import {formatToUnits} from '../utils/Formatter.js';
+import {getUserProfile} from '../utils/UserAPIHandler';
+import { login, logout, isLoggedIn, getUserInfo } from '../Auth/AuthService';
+
 
 
 class AllCoins extends Component {
@@ -29,7 +32,8 @@ class AllCoins extends Component {
           },
           last_updated: ''
       },
-      newsFeed: []
+      newsFeed: [],
+      user: {}
     };
 }
 
@@ -42,10 +46,32 @@ class AllCoins extends Component {
 
   componentDidMount() {
     getGlobalData().then((data) => {this.setState({globalData: data.data})});
+    const auth_user = getUserInfo();
+    if (auth_user === null || auth_user === ''){
+      login();
+    }
+    else{
+      getUserProfile(auth_user.email).then(user => {
+        // console.log(user);
+        this.setState({user: user});
+        if(user.news_sources.length > 0){
+          getFeedForSources(user.news_sources).then(value => {
+            this.setState({newsFeed: value});
+          });
+        }
+      });
+    }
+    // getFeeds().then((value) => {
+    //   this.setState({newsFeed: value});
+    // });
 
-    getCoinDeskFeed().then((value) => {
-      this.setState({newsFeed: value});
-    });
+    // getRedditFeeds().then((value) =>{
+    //   console.log(value);
+    //   this.setState(previousState => ({
+    //       newsFeed: [...previousState.newsFeed, value]
+    //   }));
+    // });
+
     this.getTickerData(null);
   }
 
@@ -106,6 +132,8 @@ getFilteredResults(query){
 }
 
 function DisplayNewsFeed(props) {
+  // console.log("in display news feed");
+  // console.log(props.data);
   return (props.data.map(item => <NewsFeed key={item.title} data={item}/>));
 }
 

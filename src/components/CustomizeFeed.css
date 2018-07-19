@@ -66,6 +66,7 @@
   font-size: 12px;
   line-height: 14px;
   font-family: 'Karla';
+  overflow: hidden;
 }
 
 .source-description{
@@ -90,7 +91,6 @@
   margin-left: 0px;
   margin-right: 0px;
   padding: 10px 16px 16px 16px;
-
 }
 
 .source-added{
@@ -113,8 +113,10 @@
   border-radius: 4px;
 }
 
+.search-div{
+  padding-right: 0px;
+}
 
-.container.container-custom{
+.container-customize-feed{
   padding-left: 120px;
-  padding-right: 120px;
 }

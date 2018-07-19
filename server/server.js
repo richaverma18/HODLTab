@@ -9,7 +9,14 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const feedFormatter =  require('./FeedFormatter');
 const parser = require('xml2js');
-
+let Parser = require('rss-parser');
+const parser1 = new Parser({
+  customFields: {
+    feed: ['icon'],
+    item: ['category', 'media:content', ['content:encoded', 'content']],
+    // item: ['coAuthor','subtitle'],
+  }
+});
 
 
 app.use(bodyParser.json());
@@ -35,6 +42,67 @@ const COIN_DESK_FEED_API = 'https://www.coindesk.com/feed/';
 const COIN_TELEGRAPH_FEED_API = 'https://cointelegraph.com/rss';
 
 
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "hodldb"
+});
+
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// }
+
+
+// https://www.reddit.com/r/btc/.rss?format=xml
+// https://www.reddit.com/r/CryptoCurrency/.rss?format=xml
+app.get('/api/reddit_feeds', (req,res) => {
+  (async () => {
+    let feed = await parser1.parseURL('https://www.reddit.com/r/btc/.rss?format=xml');
+    res.json(feedFormatter.formatRedditFeed(feed));
+  })();
+})
+
+app.get('/api/feeds',(req,res) => {
+  let source_ids = req.query.source_ids;
+  let query = "select feed_url from news_sources where id IN (" + source_ids + ")";
+  con.query(query, function(err, result){
+    if (err) throw err;
+    var promises = [];
+    var itemsProcessed = 0;
+           result.forEach(value => {
+             (async () => {
+               if(value.feed_url !== null){
+                 let feed = await parser1.parseURL(value.feed_url);
+                 promises = promises.concat(formatFeedResponse(feed));
+               }
+               itemsProcessed++;
+               if(itemsProcessed === result.length) {
+                 res.json(promises);
+               }
+          })();
+      });
+  });
+});
+
+function formatFeedResponse(response){
+    if(response.feedUrl.includes('reddit')){
+      return feedFormatter.formatRedditFeed(response);
+    }
+    else if (response.feedUrl.includes('youtube')) {
+
+    }
+    else if(response.feedUrl.includes('twitter')){
+
+    }
+    else{
+        return feedFormatter.formatCoinTelegraphFeed(response);
+    }
+}
+
 app.get('/api/news_feed', (req, res) => {
   axios.all([
     axios.get(COIN_DESK_FEED_API, {headers: {
@@ -57,19 +125,6 @@ app.get('/api/news_feed', (req, res) => {
    });
 })
 
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "hodldb"
-});
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// }
-
 app.get('/api/sources', (req, res) => {
   var sql = "SELECT * from news_sources";
   con.query(sql, function(err, result){
@@ -86,17 +141,17 @@ app.get('/api/user_profile', (req, res) =>{
     var sql = "SELECT * from users WHERE email = '" + email + "'";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      // console.log("user from sql");
       if(result.length > 0){
-        // console.log(result[0]);
         let user_coins_query = "select coins.id,coins.market_cap_id from coins, user_coins where coins.id = user_coins.coin_id AND user_coins.user_id = " + result[0].id ;
         con.query(user_coins_query, function(err, user_coins){
           if (err) throw err;
-          // console.log(user_coins.map(coin => coin.coin_id));
-          // console.log(user_coins);
           result[0]['coins'] = user_coins;
-          // console.log(result[0]);
-          res.json(result[0]);
+          con.query(("select news_source_id from user_feed_sources where user_id=" + result[0].id), function(err, news_sources){
+            if (err) throw err;
+            console.log(news_sources.map(value => value.news_source_id));
+            result[0]['news_sources'] = news_sources.map(value => value.news_source_id);
+            res.json(result[0]);
+          })
         })
       }else{
         res.json(result);
@@ -168,6 +223,8 @@ app.post('/api/add_coins', (req,res) => {
 })
 
 app.post('/api/add_sources', (req,res) => {
+  console.log(req.body);
+  console.log("******************************");
   req.body.source_ids.map(source_id => {
     let sql = 'insert into user_feed_sources(user_id, news_source_id) values(' + req.body.user_id + ',' + source_id + ')';
     con.query(sql, function (err, result) {
