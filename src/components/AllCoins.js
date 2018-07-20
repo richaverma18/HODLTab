@@ -32,8 +32,7 @@ class AllCoins extends Component {
           },
           last_updated: ''
       },
-      newsFeed: [],
-      user: {}
+      newsFeed: []
     };
 }
 
@@ -46,34 +45,15 @@ class AllCoins extends Component {
 
   componentDidMount() {
     getGlobalData().then((data) => {this.setState({globalData: data.data})});
-    const auth_user = getUserInfo();
-    if (auth_user === null || auth_user === ''){
-      login();
-    }
-    else{
-      getUserProfile(auth_user.email).then(user => {
-        // console.log(user);
-        this.setState({user: user});
-        if(user.news_sources.length > 0){
-          getFeedForSources(user.news_sources).then(value => {
-            this.setState({newsFeed: value});
-          });
-        }
-      });
-    }
-    // getFeeds().then((value) => {
-    //   this.setState({newsFeed: value});
-    // });
-
-    // getRedditFeeds().then((value) =>{
-    //   console.log(value);
-    //   this.setState(previousState => ({
-    //       newsFeed: [...previousState.newsFeed, value]
-    //   }));
-    // });
-
     this.getTickerData(null);
+    this.setState({newsFeed: this.props.newsFeed});
   }
+
+  componentDidUpdate(prevProps) {
+  if (this.props.newsFeed !== prevProps.newsFeed) {
+    this.setState({newsFeed: this.props.newsFeed});
+  }
+}
 
   handleInputChange = () => {
   this.setState({
@@ -132,8 +112,6 @@ getFilteredResults(query){
 }
 
 function DisplayNewsFeed(props) {
-  // console.log("in display news feed");
-  // console.log(props.data);
   return (props.data.map(item => <NewsFeed key={item.title} data={item}/>));
 }
 
