@@ -32,7 +32,7 @@
 }
 
 .background-image{
-  
+
 }
 
 
@@ -53,6 +53,8 @@
   line-height: 17px;
   color: rgba(0, 0, 0, 0.5);
   padding: 2px 16px 16px 16px;
+  overflow: scroll;
+  height: 85px;
 }
 
 .news-feed-bottom{

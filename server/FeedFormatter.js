@@ -38,17 +38,26 @@ module.exports.formatCoinTelegraphFeed = function(data){
         feedItem.tags.push(category[j]);
       }
     }
-    feedItem['image'] = (items[i]['media:content'] && items[i]['media:content']['$']) ? items[i]['media:content']['$']['url'] : '';
+    feedItem['image'] = parseImageForNews(items[i]);
     feedItem['description'] = items[i].contentSnippet;
     feedItem['link'] = items[i].link;
     feedItem['pubDate'] = items[i].pubDate;
     feedItem['title'] = items[i].title;
     feedItem['siteName'] = data.feedUrl.includes('cointelegraph') ? 'CoinTelegraph' : data.title;
-    feedItem['siteLogo'] = data.image.url;
+    feedItem['siteLogo'] = data.image ? data.image.url : '';
     coinTelegraphFeed.push(feedItem);
   }
   return coinTelegraphFeed;
 };
+
+parseImageForNews = function(data){
+  let image = (data['media:content'] && data['media:content']['$']) ? data['media:content']['$']['url'] : '';
+  if(image === '' && data.content.includes('<img')){
+    image = data.content.split('src=\"')[1].split("\"")[0];
+    // console.log(data);
+  }
+  return image;
+}
 
 module.exports.formatRedditFeed = function(data){
   var redditFeed = [];
