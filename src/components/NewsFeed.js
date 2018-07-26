@@ -1,5 +1,7 @@
 import React from 'react';
 import './NewsFeed.css';
+import YouTube from './YouTube';
+
 function NewsFeed(props) {
 
   const tags = props.data.tags.map(tag => (<div key={tag} className="news-feed-tag">
@@ -11,11 +13,14 @@ function NewsFeed(props) {
   else {
     style={marginLeft: '0px'};
   }
-
+// 'mYFaghHyMKc'
   return (
     <div className="col-sm-4">
       <div className="news-feed-div">
-        <div className="row" style={style}><div className="news-feed-tags">{tags}</div></div>
+        <div className="row" style={style}>
+          {props.data.video ? <YouTube video={props.data.video} autoplay="0" rel="0" modest="1" /> : ''}
+          <div className="news-feed-tags">{tags}</div>
+        </div>
         <div className="news-feed-title">
           <a className="news-feed-link" href={props.data.link} target="_blank">
             {props.data.title}

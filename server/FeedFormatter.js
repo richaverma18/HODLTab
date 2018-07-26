@@ -1,38 +1,44 @@
 const VALID_TAGS = ['XRP','Bitcoin','EOS','Ethereum', 'Ethereum Classic','BitGo','Abra',"Altcoin", "ICO","Blockchain", "R3","Corda","Ripple","Bitcoin Cash","Litecoin","Cardano", "CryptoCurrency"];
 
- module.exports.formatCoinDeskFeed = function(data){
+ module.exports.formatYouTubeFeed = function(data){
 
-  var coinDeskFeed = [];
-  // console.log(data);
+  var youTubeFeed = [];
   let items = data.items;
   for(let i=0; i< items.length; i++){
     let feedItem={tags:[]};
-    let categories = items[i].category || items[i].categories;
-    for(let j=0; j<categories.length; j++){
-      if(VALID_TAGS.includes(categories[j])){
-        feedItem.tags.push(categories[j]);
-      }
-    }
-    feedItem['description'] = items[i].contentSnippet;
+    feedItem['description'] = getViews(items[i]['media:group']);
     feedItem['link'] = items[i].link;
     feedItem['pubDate'] = items[i].pubDate;
     feedItem['title'] = items[i].title;
     feedItem['siteName'] = data.title;
-    feedItem['siteLogo'] = data.image.url;
-    coinDeskFeed.push(feedItem);
+    feedItem['siteLogo'] = data.image ? data.image.url : '';
+    feedItem['video'] = items[i]['yt:videoId'];
+    youTubeFeed.push(feedItem);
   }
-  return coinDeskFeed;
+  return youTubeFeed;
 };
 
+getViews = function(data){
+  var views = '';
+  if(data && data['media:community'] && data['media:community'][0] && data['media:community'][0]['media:statistics'] && data['media:community'][0]['media:statistics'][0] && data['media:community'][0]['media:statistics'][0]['$']['views']){
+    views = formatToUnits(data['media:community'][0]['media:statistics'][0]['$']['views']).toString() + ' views';
+  }
+  return views;
+}
+
+formatToUnits = function(number) {
+  const abbrev = ['', 'k', 'M', 'B', 'T'];
+  const order = Math.min(Math.floor(Math.log10(Math.abs(number)) / 3), abbrev.length - 1);
+  const suffix = abbrev[order];
+  return (number / Math.pow(10, order * 3)).toFixed(0) + suffix;
+}
+
 module.exports.formatCoinTelegraphFeed = function(data){
-  // console.log("*********************");
-  // console.log(data);
-  // console.log("*********************");
   var coinTelegraphFeed = [];
   let items = data.items;
   for(let i=0; i< items.length; i++){
     let feedItem={tags:[]};
-    let category = items[i].category || items[i].categories;
+    let category = items[i].categories ? items[i].categories : '';
     for(let j=0; j< category.length; j++){
       if(VALID_TAGS.includes(category[j])){
         feedItem.tags.push(category[j]);
@@ -52,9 +58,8 @@ module.exports.formatCoinTelegraphFeed = function(data){
 
 parseImageForNews = function(data){
   let image = (data['media:content'] && data['media:content']['$']) ? data['media:content']['$']['url'] : '';
-  if(image === '' && data.content.includes('<img')){
+  if(image === '' && data.content && data.content.includes('<img')){
     image = data.content.split('src=\"')[1].split("\"")[0];
-    // console.log(data);
   }
   return image;
 }

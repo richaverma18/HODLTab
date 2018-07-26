@@ -13,7 +13,7 @@ let Parser = require('rss-parser');
 const parser1 = new Parser({
   customFields: {
     feed: ['icon'],
-    item: ['category', 'media:content', ['content:encoded', 'content']],
+    item: ['category', 'media:content', ['content:encoded', 'content'], 'media:group', 'yt:videoId'],
     // item: ['coAuthor','subtitle'],
   }
 });
@@ -93,7 +93,7 @@ function formatFeedResponse(response){
       return feedFormatter.formatRedditFeed(response);
     }
     else if (response.feedUrl.includes('youtube')) {
-
+        return feedFormatter.formatYouTubeFeed(response);
     }
     else if(response.feedUrl.includes('twitter')){
 
