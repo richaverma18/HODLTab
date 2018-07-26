@@ -56,6 +56,23 @@ module.exports.formatCoinTelegraphFeed = function(data){
   return coinTelegraphFeed;
 };
 
+module.exports.formatTwitterFeed = function(data){
+  var twitterFeed = [];
+  let items = data.items;
+  for(let i=0; i< items.length; i++){
+    let feedItem={tags:[]};
+    feedItem['image'] = parseImageForNews(items[i]);
+    feedItem['description'] = '';
+    feedItem['link'] = items[i].link;
+    feedItem['pubDate'] = items[i].pubDate;
+    feedItem['title'] = items[i].title;
+    feedItem['siteName'] = items[i].creator;
+    feedItem['siteLogo'] = data.image ? data.image.url : '';
+    twitterFeed.push(feedItem);
+  }
+  return twitterFeed;
+};
+
 parseImageForNews = function(data){
   let image = (data['media:content'] && data['media:content']['$']) ? data['media:content']['$']['url'] : '';
   if(image === '' && data.content && data.content.includes('<img')){

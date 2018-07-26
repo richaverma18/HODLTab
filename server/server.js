@@ -77,13 +77,14 @@ app.get('/api/feeds',(req,res) => {
              (async () => {
                if(value.feed_url !== null){
                  let feed = await parser1.parseURL(value.feed_url);
+
                  promises = promises.concat(formatFeedResponse(feed));
                }
                itemsProcessed++;
                if(itemsProcessed === result.length) {
                  res.json(promises);
                }
-          })();
+          }).catch(() => {})();
       });
   });
 });
@@ -96,7 +97,8 @@ function formatFeedResponse(response){
         return feedFormatter.formatYouTubeFeed(response);
     }
     else if(response.feedUrl.includes('twitter')){
-
+      // console.log(response);
+      return feedFormatter.formatTwitterFeed(response);
     }
     else{
         return feedFormatter.formatCoinTelegraphFeed(response);

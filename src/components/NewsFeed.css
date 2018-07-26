@@ -37,6 +37,7 @@
 
 
 .news-feed-title{
+  overflow: hidden;
   padding: 20px 16px 16px 16px;
 }
 
