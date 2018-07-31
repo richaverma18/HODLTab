@@ -84,7 +84,7 @@ app.get('/api/feeds',(req,res) => {
                if(itemsProcessed === result.length) {
                  res.json(promises);
                }
-          }).catch(() => {})();
+          })();
       });
   });
 });
