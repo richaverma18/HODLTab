@@ -61,6 +61,8 @@ class Home extends Component{
     }
 
     render() {
+      let activeTab = (this.props.location.state && this.props.location.state.tab) ? 'all' : 'my';
+      let style = {display:'none'};
       return (
         <div className="crypto-container">
           <nav className="navbar navbar-default crypto-navbar">
@@ -71,8 +73,8 @@ class Home extends Component{
               </div>
               <div className="col-xs-10">
               <ul className="nav nav-tabs">
-                  <li onClick={this.showTabContent} id="my-coins"><a href="#">MY COINS</a></li>
-                  <li onClick={this.showTabContent} id="all-coins"><a href="#">ALL COINS</a></li>
+                  <li onClick={this.showTabContent} id="my-coins" className={(activeTab === 'my') ? 'active' : ''}><a href="#">MY COINS</a></li>
+                  <li onClick={this.showTabContent} id="all-coins" className={(activeTab === 'all') ? 'active' : ''}><a href="#">ALL COINS</a></li>
               </ul>
               </div>
 
@@ -82,15 +84,13 @@ class Home extends Component{
           </nav>
 
           <div className="card">
-              <div id="my-coins-pane"  className="tab-pane">
+              <div id="my-coins-pane" style={(activeTab === 'all') ? style : {}} className="tab-pane">
                   <MyCoins user={this.state.user} newsFeed={this.state.newsFeed}/>
               </div>
-              <div id="all-coins-pane" style={{display:'none'}} className="tab-pane">
+              <div id="all-coins-pane" style={(activeTab === 'my') ? style : {}} className="tab-pane">
                 <AllCoins newsFeed={this.state.newsFeed}/>
               </div>
           </div>
-
-
         </div>
         )
       }
