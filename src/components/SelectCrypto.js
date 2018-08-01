@@ -87,6 +87,8 @@ getFilteredResults(query){
     let displayCoins = this.state.filtered_data.slice(startIndex, endIndex);
 
     const user = getUserInfo();
+    const name = user.name.includes('@') ? user.nickname : user.name;
+
     // console.log("in callback component");
     // console.log(user);
 
@@ -111,7 +113,7 @@ getFilteredResults(query){
           </div>
           <Link className="navbar-right" style={{paddingRight: '24px', marginTop:'-4px'}} to={{pathname: '/customize_feed',state: {id: this.props.location.state.user_id } }}><button className={isNextButtonEnabled ? "next-button" : "next-button disabled-next-button"} disabled={!isNextButtonEnabled} onClick={()=>this.addUserCoins()}>Next</button></Link>
         </nav>
-        <Welcome username={user.name}/>
+        <Welcome username={name}/>
         <form>
           <div className="crypto-serach-div">
           <input
