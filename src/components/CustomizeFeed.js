@@ -32,16 +32,30 @@ class CustomizeFeed extends Component{
     addSources({user_id: user_id, source_ids: this.state.added_sources});
   }
 
-  filterSources(category){
+  filterSources = (event) => {
+    var category = event.currentTarget.innerHTML;
+    var prevClass = event.currentTarget.className;
     var a = [];
     const sources = this.state.sources;
-    for(var i=0; i< sources.length; i++)
-    {
-      if(sources[i].category.toLowerCase().includes(category.toLowerCase())){
-        a.push(sources[i]);
+    var x = document.getElementById("categories").children;
+    for(var i=0; i<x.length;i++){
+      if(x[i].innerHTML === category){
+        x[i].className = "active-category";
+      }else{
+        x[i].className="categories";
       }
     }
-    this.setState({filtered_sources: a});
+    if(category === 'All Sources'){
+      this.setState({filtered_sources: sources});
+    }else{
+      for(var i=0; i< sources.length; i++)
+      {
+        if(sources[i].category.toLowerCase().includes(category.toLowerCase())){
+          a.push(sources[i]);
+        }
+      }
+      this.setState({filtered_sources: a});
+    }
   }
 
   handleInputChange = () => {
@@ -80,12 +94,12 @@ getFilteredResults(query){
           <div className="crypto-welcome-text"><p>Here are some sources we’ve picked for you. <br/> Again, you can always change these later!</p> </div>
           <Grid className="container-customize-feed">
             <Row style={{paddingBottom: '40px'}}>
-              <Col sm={7}>
-                <button className="all-sources" onClick={() => this.filterSources('')}>All Sources</button>
-                <button className="categories" onClick={() => this.filterSources('News')}>News</button>
-                <button className="categories" onClick={() => this.filterSources('Twitter')}>Twitter</button>
-                <button className="categories" onClick={() => this.filterSources('Reddit')}>Reddit</button>
-                <button className="categories" onClick={() => this.filterSources('YouTube')}>YouTube</button>
+              <Col sm={7} id="categories">
+                <button className="active-category" onClick={this.filterSources}>All Sources</button>
+                <button className="categories" onClick={this.filterSources}>News</button>
+                <button className="categories" onClick={this.filterSources}>Twitter</button>
+                <button className="categories" onClick={this.filterSources}>Reddit</button>
+                <button className="categories" onClick={this.filterSources}>YouTube</button>
                 </Col>
               <Col sm={5} className="search-div">
               <form>
