@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './SelectCrypto.css';
-import {getCryptoListings} from '../utils/crypto-listings.js';
+import {getTickerData} from '../utils/crypto-listings.js';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
 import {getUserInfo} from '../Auth/AuthService';
@@ -29,7 +29,7 @@ class SelectCrypto extends Component{
 }
 
   getListings(){
-    getCryptoListings().then((listings) => {
+    getTickerData().then((listings) => {
       this.setState({data: listings.data, filtered_data: listings.data});
     });
   }
