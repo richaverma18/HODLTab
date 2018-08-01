@@ -21,13 +21,15 @@ class Callback extends Component {
 
   componentDidMount(){
     const auth_user = getUserInfo();
+    // console.log(auth_user);
     getUserProfile(auth_user.email).then(user => {
-      console.log(user);
       if(user === null || user.length === 0){
-        createUser({name: auth_user.name, email: auth_user.email}).then(result => {
+        var name = auth_user.name;
+        if(name.includes('@')){
+          name = auth_user.nickname;
+        }
+        createUser({name: name, email: auth_user.email}).then(result => {
           this.setState({user: {id: result.insertId}});
-          console.log("user state");
-          console.log(this.state);
         });
       }
       else{
