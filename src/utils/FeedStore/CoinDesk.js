@@ -30,6 +30,15 @@ function getFeedForSources(source_ids){
   }).then(response => response.data);
 }
 
+function getSourceInfo(ids){
+  return axios.get('/api/get_source_info', {
+    params: {
+      ids: ids
+    }
+  }).then(response => response.data);
+}
+
+
 function getNewsFeedSources(){
   const url = '/api/sources';
   return axios.get(url).then(response => response.data);
@@ -44,4 +53,4 @@ function getAddedSources(user_id){
   }).then(response => response.data);
 }
 
-export {getCoinDeskFeed, getNewsFeedSources, getAddedSources, getRedditFeeds, getFeeds, getFeedForSources};
+export {getCoinDeskFeed, getNewsFeedSources, getAddedSources, getRedditFeeds, getFeeds, getFeedForSources, getSourceInfo};

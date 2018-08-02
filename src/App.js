@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { login, logout, isLoggedIn } from './Auth/AuthService';
 import { Redirect } from 'react-router-dom';
 import AllCoins from './components/AllCoins';
-import {getFeedForSources} from './utils/FeedStore/CoinDesk.js';
+import {getFeedForSources, getSourceInfo} from './utils/FeedStore/CoinDesk.js';
 import {shuffle} from './utils/Formatter.js';
 
 class App extends Component {
@@ -14,7 +14,8 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: isLoggedIn(),
-      newsFeed: []
+      newsFeed: [],
+      sources:[]
     };
   }
 
@@ -25,7 +26,10 @@ class App extends Component {
   }
 
   componentDidMount(){
-    getFeedForSources([1,2,3,5,10,32,33,34,59,61,62]).then(value => {
+    getSourceInfo([1,2,3,5,32,33,59,61]).then(value => {
+      this.setState({sources: value});
+    });
+    getFeedForSources([1,2,3,5,32,33,59,61]).then(value => {
       this.setState({newsFeed: shuffle(value)});
     });
   }
@@ -48,7 +52,7 @@ class App extends Component {
             </ul>
           </nav>
           <div className="all-coins-div">
-            <AllCoins newsFeed={this.state.newsFeed}/>
+            <AllCoins sources={this.state.sources} newsFeed={this.state.newsFeed}/>
           </div>
       </div>
     );

@@ -167,6 +167,14 @@ app.get('/api/user_profile', (req, res) =>{
     });
   });
 
+  app.get('/api/get_source_info',(req,res) => {
+    var sql = "SELECT logo,name from news_sources where id IN (" + req.query.ids +")";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    })
+  });
+
 
 // app.post('/api/add_coins', (req,res) => {
 //   con.connect(function(err){
