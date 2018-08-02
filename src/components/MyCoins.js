@@ -4,6 +4,7 @@ import NewsFeed from './NewsFeed.js';
 import CoinSuggestions from './CoinSuggestions.js';
 import { Redirect } from 'react-router-dom';
 import {getTickerData} from '../utils/crypto-listings.js';
+import { Link } from 'react-router-dom';
 
 class MyCoins extends Component {
   constructor(props) {
@@ -62,9 +63,29 @@ class MyCoins extends Component {
   }
 
   render(){
+    const Logos = this.props.sources.map(source => (<img src={ '/source_logos/' + source.logo} alt={source.name} title={source.name} className="top-bar-logo" />));
+
     return(
       <div>
       <Grid>
+      <Row>
+        <Col md={4}>
+          <div className="time-frame">1H</div>
+          <div className="active-time-frame">1D</div>
+          <div className="time-frame">7D</div>
+          <div className="time-frame">1M</div>
+          <div className="time-frame">3M</div>
+          <div className="time-frame">1Y</div>
+        </Col>
+        <Col md={8}>
+        <div className="row top-bar-row">
+          <div className="all-sources-top-bar"><span className="all-sources-text">ALL</span></div>
+          {Logos}
+          <div className="add-source-top-bar"><Link className="add-source-text" to="/customize_feed"> + </Link></div>
+        </div>
+        </Col>
+      </Row>
+
         <Row>
           <Col md={4}>
             {CoinSuggestions(this.state.coins)}

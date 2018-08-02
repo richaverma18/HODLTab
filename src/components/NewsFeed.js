@@ -31,7 +31,7 @@ function NewsFeed(props) {
         </div>
         <div className="row news-feed-bottom">
           <div className="col-sm-8" style={{display:'inline-flex', paddingLeft: '0px'}}>
-          <img className="news-feed-logo" src={props.data.siteLogo}/>
+          <img className="news-feed-logo" src={props.data.siteLogo || '/source_logos/' + props.data.siteName.replace(/\s+/g, '').toLowerCase() + ".jpg"}/>
           <p className="news-feed-source">{props.data.siteName}</p>
           </div>
           <div className="col-sm-4 news-feed-pub-time"><span style={{float: 'right'}}>{convertPubDate(props.data.pubDate)} ago</span></div>

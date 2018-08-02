@@ -16,7 +16,7 @@ class Home extends Component{
       this.state = {
         key: 2,
         isLoggedIn: isLoggedIn(),
-        user: {},
+        user: {news_sources:[]},
         newsFeed: []
       };
     }
@@ -53,7 +53,8 @@ class Home extends Component{
         getUserProfile(auth_user.email).then(user => {
           this.setState({user: user});
           if(user.news_sources.length > 0){
-            getFeedForSources(user.news_sources).then(value => {
+            console.log(user.news_sources);
+            getFeedForSources(user.news_sources.map(source => source.id)).then(value => {
               this.setState({newsFeed: shuffle(value)});
             });
           }
@@ -86,10 +87,10 @@ class Home extends Component{
 
           <div className="card">
               <div id="my-coins-pane" style={(activeTab === 'all') ? style : {}} className="tab-pane">
-                  <MyCoins user={this.state.user} newsFeed={this.state.newsFeed}/>
+                  <MyCoins user={this.state.user} sources={this.state.user.news_sources} newsFeed={this.state.newsFeed}/>
               </div>
               <div id="all-coins-pane" style={(activeTab === 'my') ? style : {}} className="tab-pane">
-                <AllCoins newsFeed={this.state.newsFeed}/>
+                <AllCoins sources={this.state.user.news_sources} newsFeed={this.state.newsFeed}/>
               </div>
           </div>
         </div>

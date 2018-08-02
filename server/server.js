@@ -148,10 +148,16 @@ app.get('/api/user_profile', (req, res) =>{
         con.query(user_coins_query, function(err, user_coins){
           if (err) throw err;
           result[0]['coins'] = user_coins;
-          con.query(("select news_source_id from user_feed_sources where user_id=" + result[0].id), function(err, news_sources){
+          con.query(("select news_sources.id, news_sources.name, news_sources.logo from news_sources, user_feed_sources where news_sources.id = user_feed_sources.news_source_id AND user_feed_sources.user_id=" + result[0].id), function(err, news_sources){
             if (err) throw err;
-            console.log(news_sources.map(value => value.news_source_id));
-            result[0]['news_sources'] = news_sources.map(value => value.news_source_id);
+            console.log(news_sources);
+            result[0]['news_sources'] = news_sources.map(value => {
+              let res = {};
+              res['id'] = value.id;
+              res['name'] = value.name;
+              res['logo'] = value.logo;
+              return res;
+            });
             res.json(result[0]);
           })
         })
