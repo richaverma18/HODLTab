@@ -8,7 +8,6 @@ import CoinSuggestions from './CoinSuggestions.js';
 import {formatToUnits} from '../utils/Formatter.js';
 import {getUserProfile} from '../utils/UserAPIHandler';
 import { login, logout, isLoggedIn, getUserInfo } from '../Auth/AuthService';
-import SourceLogosTopBar from './SourceLogosTopBar.js';
 import { Link } from 'react-router-dom';
 
 
