@@ -114,6 +114,12 @@
   font-family: Karla;
 }
 
+.all-coins-div{
+  padding-top: 40px;
+  padding-left: 60px;
+  background-color: #F7F7F7;
+  margin-top: 15px;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

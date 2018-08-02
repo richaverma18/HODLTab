@@ -89,11 +89,7 @@ getFilteredResults(query){
     const user = getUserInfo();
     const name = user.name.includes('@') ? user.nickname : user.name;
 
-    // console.log("in callback component");
-    // console.log(user);
-
-    // const username = JSON.parse(localStorage.getItem('profile'));
-      const CoinSuggestions = displayCoins.map(r => (
+    const CoinSuggestions = displayCoins.map(r => (
         <div key={r.id} className="crypto-coin-suggestion">
         {r.name}
         <span className="crypto-coin-symbol">{r.symbol}</span>

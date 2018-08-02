@@ -5,13 +5,16 @@ import {Grid, Row, Col, Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { login, logout, isLoggedIn } from './Auth/AuthService';
 import { Redirect } from 'react-router-dom';
-
+import AllCoins from './components/AllCoins';
+import {getFeedForSources} from './utils/FeedStore/CoinDesk.js';
+import {shuffle} from './utils/Formatter.js';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isLoggedIn: isLoggedIn()
+      isLoggedIn: isLoggedIn(),
+      newsFeed: []
     };
   }
 
@@ -19,6 +22,12 @@ class App extends Component {
     logout();
     this.setState({isLoggedIn: isLoggedIn()});
     window.location.href = "/";
+  }
+
+  componentDidMount(){
+    getFeedForSources([1,2,3,5,10,32,33,34,59,61,62]).then(value => {
+      this.setState({newsFeed: shuffle(value)});
+    });
   }
 
   render() {
@@ -32,17 +41,22 @@ class App extends Component {
             </div>
             <ul className="nav navbar-right landing-navbar-links">
               <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
-              <li><Link className="landing-navbar-links" to='/home'>HOME</Link></li>
               <li>
                 {this.state.isLoggedIn ? ( <button className="btn sign-up-button log" onClick={() => this.handleLogout()}>LOG OUT </button> ) : ( <button className="sign-up-button" onClick={() => login()}>LOG IN/SIGN UP</button> )}
               </li>
             </ul>
           </nav>
-         <Content/>
+          <div className="all-coins-div">
+            <AllCoins newsFeed={this.state.newsFeed}/>
+          </div>
       </div>
     );
   }
 }
+
+// <Content/>
+// <li><Link className="landing-navbar-links" to='/home'>HOME</Link></li>
+//
 
 
 class Content extends React.Component {

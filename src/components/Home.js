@@ -7,6 +7,7 @@ import './Home.css';
 import { login, logout, isLoggedIn, getUserInfo } from '../Auth/AuthService';
 import {getUserProfile} from '../utils/UserAPIHandler';
 import {getFeedForSources} from '../utils/FeedStore/CoinDesk.js';
+import {shuffle} from '../utils/Formatter.js';
 
 class Home extends Component{
     constructor(props){
@@ -53,7 +54,7 @@ class Home extends Component{
           this.setState({user: user});
           if(user.news_sources.length > 0){
             getFeedForSources(user.news_sources).then(value => {
-              this.setState({newsFeed: value});
+              this.setState({newsFeed: shuffle(value)});
             });
           }
         });
