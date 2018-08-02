@@ -40,7 +40,7 @@ class App extends Component {
               </Link>
             </div>
             <ul className="nav navbar-right landing-navbar-links">
-              <li><Link className="landing-navbar-links" to='/'>CONTACT</Link></li>
+              <li><Link className="landing-navbar-links" to='/contact'>CONTACT</Link></li>
               <li>
                 {this.state.isLoggedIn ? ( <button className="btn sign-up-button log" onClick={() => this.handleLogout()}>LOG OUT </button> ) : ( <button className="sign-up-button" onClick={() => login()}>LOG IN/SIGN UP</button> )}
               </li>

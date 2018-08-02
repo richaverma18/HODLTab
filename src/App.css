@@ -121,6 +121,32 @@
   margin-top: 15px;
 }
 
+.contact-us-div{
+  padding-top: 130px;
+  width: 700px;
+  margin: auto;
+text-align: center;
+}
+
+.contact-us-text{
+  font-size: 20px;
+  font-family: 'Karla';
+  color: #645997;
+}
+
+.contact-us-header{
+  font-size: 45px;
+  font-family: 'Russo one';
+  color: #645997;
+
+}
+
+.contact-us-email{
+  font-size: 20px;
+  font-family: 'Karla';
+  color: #645997;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
