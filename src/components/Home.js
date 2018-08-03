@@ -53,7 +53,7 @@ class Home extends Component{
         getUserProfile(auth_user.email).then(user => {
           this.setState({user: user});
           if(user.news_sources.length > 0){
-            console.log(user.news_sources);
+            // console.log(user.news_sources);
             getFeedForSources(user.news_sources.map(source => source.id)).then(value => {
               this.setState({newsFeed: shuffle(value)});
             });

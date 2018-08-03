@@ -76,9 +76,15 @@ app.get('/api/feeds',(req,res) => {
            result.forEach(value => {
              (async () => {
                if(value.feed_url !== null){
-                 let feed = await parser1.parseURL(value.feed_url);
+                 try{
+                    let feed = await parser1.parseURL(value.feed_url);
+                    promises = promises.concat(formatFeedResponse(feed));
+                 }
+                 catch(e){
+                   console.log("in here");
+                   console.log(e);
+                 }
 
-                 promises = promises.concat(formatFeedResponse(feed));
                }
                itemsProcessed++;
                if(itemsProcessed === result.length) {
@@ -150,7 +156,6 @@ app.get('/api/user_profile', (req, res) =>{
           result[0]['coins'] = user_coins;
           con.query(("select news_sources.id, news_sources.name, news_sources.logo from news_sources, user_feed_sources where news_sources.id = user_feed_sources.news_source_id AND user_feed_sources.user_id=" + result[0].id), function(err, news_sources){
             if (err) throw err;
-            console.log(news_sources);
             result[0]['news_sources'] = news_sources.map(value => {
               let res = {};
               res['id'] = value.id;
@@ -239,8 +244,6 @@ app.post('/api/add_coins', (req,res) => {
 })
 
 app.post('/api/add_sources', (req,res) => {
-  console.log(req.body);
-  console.log("******************************");
   req.body.source_ids.map(source_id => {
     let sql = 'insert into user_feed_sources(user_id, news_source_id) values(' + req.body.user_id + ',' + source_id + ')';
     con.query(sql, function (err, result) {
