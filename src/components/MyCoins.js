@@ -56,7 +56,7 @@ class MyCoins extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.newsFeed !== prevProps.newsFeed) {
-      this.setState({newsFeed: this.props.newsFeed});
+      this.setState({newsFeed: this.props.newsFeed, filtered_sources: this.props.newsFeed});
     }
     if (this.props.user !== prevProps.user) {
       this.setUser(this.props.user);
