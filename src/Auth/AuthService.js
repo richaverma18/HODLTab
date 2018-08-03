@@ -38,12 +38,10 @@ export function getProfile() {
   var accessToken = localStorage.getItem('access_token');
 
   if (!accessToken) {
-    console.log('Access Token must exist to fetch profile');
+
   }
 
   return auth.client.userInfo(accessToken, function(err, profile) {
-      console.log("profile");
-      console.log(profile);
       if (profile) {
         return profile;
 
@@ -104,12 +102,10 @@ export function getUserInfo(){
 
 export function getUserID(){
   let id = localStorage.getItem(USER_ID);
-  console.log(id);
   if(!id){
     login();
   }
   else{
-    console.log("in get item user id");
     return id;
   }
 }

@@ -32,7 +32,8 @@ class AllCoins extends Component {
           },
           last_updated: ''
       },
-      newsFeed: []
+      newsFeed: [],
+      filtered_sources: []
     };
 }
 
@@ -46,12 +47,12 @@ class AllCoins extends Component {
   componentDidMount() {
     getGlobalData().then((data) => {this.setState({globalData: data.data})});
     this.getTickerData(null);
-    this.setState({newsFeed: this.props.newsFeed});
+    this.setState({newsFeed: this.props.newsFeed, filtered_sources: this.props.newsFeed});
   }
 
   componentDidUpdate(prevProps) {
   if (this.props.newsFeed !== prevProps.newsFeed) {
-    this.setState({newsFeed: this.props.newsFeed});
+    this.setState({newsFeed: this.props.newsFeed, filtered_sources: this.props.newsFeed});
   }
 }
 
@@ -79,9 +80,23 @@ getFilteredResults(query){
   this.setState({filtered_data: a});
 }
 
+getFilteredNewsFeed(query){
+  var a = [];
+  console.log(query);
+  const feed = this.state.newsFeed;
+  for(var i=0; i< feed.length; i++)
+  {
+    if(feed[i].siteName.toLowerCase().includes(query.toLowerCase())){
+      a.push(feed[i]);
+    }
+  }
+  this.setState({filtered_sources: a});
+}
+//
+//
 
   render(){
-    const Logos = this.props.sources.map(source => (<img src={ '/source_logos/' + source.logo} alt={source.name} title={source.name} className="top-bar-logo" />));
+    const Logos = this.props.sources.map(source => (<div key={source.name} onClick={() => this.getFilteredNewsFeed(source.name)}><img src={ '/source_logos/' + source.logo} alt={source.name} title={source.name} className="top-bar-logo" /></div>));
 
     return(
       <div>
@@ -97,7 +112,7 @@ getFilteredResults(query){
           </Col>
           <Col md={8}>
           <div className="row top-bar-row">
-            <div className="all-sources-top-bar"><span className="all-sources-text">ALL</span></div>
+            <div className="all-sources-top-bar" onClick={() =>this.getFilteredNewsFeed('')}><span className="all-sources-text">ALL</span></div>
             {Logos}
             <div className="add-source-top-bar"><Link className="add-source-text" to="/customize_feed"> + </Link></div>
           </div>
@@ -120,7 +135,7 @@ getFilteredResults(query){
           </Col>
           <Col md={8}>
             <div className="row">
-                <DisplayNewsFeed data={this.state.newsFeed}/>
+                <DisplayNewsFeed data={this.state.filtered_sources}/>
             </div>
           </Col>
         </Row>

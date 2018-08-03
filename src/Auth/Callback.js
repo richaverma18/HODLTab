@@ -55,7 +55,6 @@ class Callback extends Component {
 
   render() {
     if(this.state.user.id){
-      console.log("in set local user id");
       localStorage.setItem('user_id',this.state.user.id);
     }
     const Page = this.getNextPage();

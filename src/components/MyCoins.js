@@ -12,7 +12,8 @@ class MyCoins extends Component {
     this.state= {
       coins: [],
       newsFeed: [],
-      user: {}
+      user: {},
+      filtered_sources: []
     };
   }
 
@@ -31,7 +32,7 @@ class MyCoins extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.newsFeed !== prevProps.newsFeed) {
-      this.setState({newsFeed: this.props.newsFeed});
+      this.setState({newsFeed: this.props.newsFeed, filtered_sources: this.props.newsFeed});
     }
     if (this.props.coins !== prevProps.coins) {
       this.setState({coins: this.props.coins});
@@ -42,7 +43,7 @@ class MyCoins extends Component {
   }
 
   componentDidMount(){
-    this.setState({newsFeed: this.props.newsFeed});
+    this.setState({newsFeed: this.props.newsFeed, filtered_sources: this.props.newsFeed});
     this.setUser(this.props.user);
   }
 
@@ -62,8 +63,21 @@ class MyCoins extends Component {
     }
   }
 
+  getFilteredNewsFeed(query){
+    var a = [];
+    const feed = this.state.newsFeed;
+    for(var i=0; i< feed.length; i++)
+    {
+      if(feed[i].siteName.toLowerCase().includes(query.toLowerCase())){
+        a.push(feed[i]);
+      }
+    }
+    this.setState({filtered_sources: a});
+  }
+
+
   render(){
-    const Logos = this.props.sources.map(source => (<img src={ '/source_logos/' + source.logo} alt={source.name} title={source.name} className="top-bar-logo" />));
+    const Logos = this.props.sources.map(source => (<div key={source.name} onClick={() => this.getFilteredNewsFeed(source.name)}><img src={ '/source_logos/' + source.logo} alt={source.name} title={source.name} className="top-bar-logo" /></div>));
 
     return(
       <div>
@@ -79,7 +93,7 @@ class MyCoins extends Component {
         </Col>
         <Col md={8}>
         <div className="row top-bar-row">
-          <div className="all-sources-top-bar"><span className="all-sources-text">ALL</span></div>
+          <div className="all-sources-top-bar" onClick={() => this.getFilteredNewsFeed('')}><span className="all-sources-text">ALL</span></div>
           {Logos}
           <div className="add-source-top-bar"><Link className="add-source-text" to="/customize_feed"> + </Link></div>
         </div>
@@ -92,7 +106,7 @@ class MyCoins extends Component {
           </Col>
           <Col md={8}>
             <div className="row">
-                <DisplayNewsFeed data={this.state.newsFeed}/>
+                <DisplayNewsFeed data={this.state.filtered_sources}/>
             </div>
           </Col>
         </Row>
