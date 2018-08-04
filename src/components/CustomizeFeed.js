@@ -119,9 +119,9 @@ getFilteredResults(query){
                   <div className="source-div">
                     <Row>
                       <Col sm={2}>
-                        <img className="source-logo" src="" />
+                        <img className="source-logo" src={'/source_logos/' + source.logo} />
                       </Col>
-                      <Col sm={7}>
+                      <Col sm={7} style={{marginLeft: '14px'}}>
                         <Row>
                           <div className="source-name">{source.name}</div>
                         </Row>
@@ -130,7 +130,7 @@ getFilteredResults(query){
                           <div className="source-link">{source.url}</div>
                         </Row>
                       </Col>
-                      <Col sm={3}>
+                      <Col sm={2}>
                           <button className={this.state.added_sources.includes(source.id) ? "source-added" : "add-source" } onClick={() => this.addSource(source.id)}><img src={this.state.added_sources.includes(source.id) ? "/coin_added.svg" : "/add_button.svg"}/></button>
                       </Col>
                     </Row>

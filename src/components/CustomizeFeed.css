@@ -49,8 +49,12 @@
 }
 
 .source-logo{
-  padding-left: 14px;
-  padding-top: 16px;
+  margin-left: 14px;
+  margin-top: 16px;
+  margin-right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .source-name{
